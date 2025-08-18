@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Tag: View — Moe Community Wellness</title>
+  <meta name="description" content="Dynamic tag view for near‑infrared devices."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css"/>
+  <meta property="og:title" content="Tag — Devices"/>
+  <meta property="og:description" content="Explore devices filtered by tag."/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:image" content="../assets/images/og-index.png"/>
+</head>
+<body class="plaid-bg">
+  <header class="nav">
+    <div class="row">
+      <div class="brand">
+        <div class="logo" aria-hidden="true"></div>
+        <div class="brand-name">Moe Community Wellness</div>
+        <span class="badge">Tag</span>
+      </div>
+      <nav>
+        <a href="../index.html">Home</a>
+        <a href="../oscillator.html">Oscillator</a>
+        <a href="../blog/index.html">Blog</a>
+        <a href="../resources/index.html">Resources</a>
+        <a href="../compare/index.html">Compare</a>
+        <a href="index.html">Tags</a>
+        <a href="../explore/index.html">Explore</a>
+      </nav>
+    </div>
+  </header>
+  <main>
+    <section class="section container">
+      <h1 id="title">Tag</h1>
+      <div class="grid grid-3" id="grid"></div>
+    </section>
+  </main>
+  <footer>
+    <div class="container">
+      <div class="cols">
+        <div><strong>Moe Community Wellness</strong><br/><span class="small">© <span id="year"></span> Moe Community Cloud</span></div>
+        <div><div class="small">Links</div><a href="../index.html">Home</a><br/><a href="../oscillator.html">Oscillator</a></div>
+        <div><div class="small">Sitemap</div><a href="../sitemap.xml">sitemap.xml</a></div>
+      </div>
+    </div>
+  </footer>
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+    const params = new URLSearchParams(location.search);
+    const TAG = params.get('tag') || '';
+    document.title = TAG ? `Tag: ${TAG} — Moe Community Wellness` : 'Tag — Moe Community Wellness';
+    const h1 = document.getElementById('title'); h1.textContent = TAG ? `Tag: ${TAG}` : 'Tag';
+    async function load(){
+      const r = await fetch('../data/products.json', {cache:'no-store'});
+      const list = await r.json();
+      const grid = document.getElementById('grid');
+      const filtered = list.filter(p => (p.tags||[]).includes(TAG));
+      filtered.forEach(p => {
+        const div = document.createElement('div');
+        div.className='card product';
+        div.innerHTML = `
+          <img src="../${p.img}" alt="${p.name}"/>
+          <div class="name">${p.name}</div>
+          <div class="small" style="margin-top:4px">${p.wavelengths}${p.irradiance_mW_cm2 ? ' • '+p.irradiance_mW_cm2+' mW/cm²' : ''}</div>
+          <div class="tags">${(p.tags||[]).map(t=>'<a class="tag" href="view.html?tag='+encodeURIComponent(t)+'">#'+t+'</a>').join(' ')}</div>
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-top:8px">
+            <span class="small">${p.price||''}</span>
+            <a class="btn alt" href="${p.link||'#'}">Details</a>
+          </div>
+        `;
+        grid.appendChild(div);
+      });
+      if(filtered.length===0){
+        const n = document.createElement('div');
+        n.className = 'notice';
+        n.textContent = 'No products found for this tag.';
+        grid.parentElement.appendChild(n);
+      }
+    }
+    load();
+  </script>
+</body>
+</html>

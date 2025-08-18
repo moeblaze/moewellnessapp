@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Explore Devices — Search & Filters</title>
+  <meta name="description" content="Find the right near‑infrared device by category, wavelength, tag, or irradiance. Live filtering for quick decisions."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css"/>
+  <link rel="canonical" href="https://www.moecommunitycloud.com/explore"/>
+  <meta property="og:title" content="Explore Devices — Search & Filters"/>
+  <meta property="og:description" content="Search and filter NIR devices by wavelength, irradiance, category, and tags."/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:url" content="https://www.moecommunitycloud.com/explore"/>
+  <meta property="og:image" content="../assets/images/og-index.png"/>
+  <style>
+    .filters{display:grid;grid-template-columns:1.2fr 1fr 1fr 1fr;gap:10px;margin-bottom:14px}
+    @media(max-width:1080px){.filters{grid-template-columns:1fr 1fr}}
+    @media(max-width:640px){.filters{grid-template-columns:1fr}}
+    .chip{display:inline-flex;align-items:center;gap:6px;border:1px solid rgba(231,198,92,0.4);border-radius:999px;padding:6px 10px;margin:4px 6px 0 0;font-size:12px}
+    .results-header{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:8px}
+    select, input[type="text"], input[type="number"]{background:#0d0d10;border:1px solid rgba(231,198,92,0.35);border-radius:10px;padding:10px;color:#f4f4f5;width:100%}
+  </style>
+</head>
+<body class="plaid-bg">
+  <header class="nav">
+    <div class="row">
+      <div class="brand">
+        <div class="logo" aria-hidden="true"></div>
+        <div class="brand-name">Moe Community Wellness</div>
+        <span class="badge">Explore</span>
+      </div>
+      <nav>
+        <a href="../index.html">Home</a>
+        <a href="../oscillator.html">Oscillator</a>
+        <a href="../blog/index.html">Blog</a>
+        <a href="../resources/index.html">Resources</a>
+        <a href="../compare/index.html">Compare</a>
+        <a href="index.html">Explore</a>
+        <a href="../tags/index.html">Tags</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="section container">
+      <h1>Explore Devices</h1>
+      <p class="desc">Filter by name, category, tags, wavelengths, and irradiance. Results update live.</p>
+
+      <div class="filters card">
+        <div>
+          <label class="small">Search</label>
+          <input id="q" type="text" placeholder="Search name, wavelengths, tags..."/>
+        </div>
+        <div>
+          <label class="small">Category</label>
+          <select id="cat"><option value="">All</option></select>
+        </div>
+        <div>
+          <label class="small">Minimum Irradiance (mW/cm²)</label>
+          <input id="irr" type="number" min="0" step="5" placeholder="e.g., 60"/>
+        </div>
+        <div>
+          <label class="small">Sort</label>
+          <select id="sort">
+            <option value="name">Name (A–Z)</option>
+            <option value="irr">Irradiance (High→Low)</option>
+          </select>
+        </div>
+        <div style="grid-column:1/-1">
+          <label class="small">Wavelengths</label>
+          <div id="waves"></div>
+        </div>
+        <div style="grid-column:1/-1">
+          <label class="small">Tags</label>
+          <div id="tags"></div>
+        </div>
+        <div style="grid-column:1/-1;display:flex;gap:10px;flex-wrap:wrap">
+          <button class="btn" id="reset">Reset</button>
+          <span class="small" id="count"></span>
+        </div>
+      </div>
+
+      <div class="grid grid-3" id="grid"></div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="cols">
+        <div><strong>Moe Community Wellness</strong><br/><span class="small">© <span id="year"></span> Moe Community Cloud</span></div>
+        <div><div class="small">Links</div><a href="../index.html">Home</a><br/><a href="../oscillator.html">Oscillator</a></div>
+        <div><div class="small">Sitemap</div><a href="../sitemap.xml">sitemap.xml</a></div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+    const WAVE_CHOICES = ['630','633','660','810','830','850','1064'];
+
+    function containsNm(wavelengths, nm){
+      return (wavelengths||'').toLowerCase().includes(nm);
+    }
+    function createChip(id, label, parent){
+      const span = document.createElement('label');
+      span.className='chip';
+      span.innerHTML = '<input type="checkbox" id="'+id+'" /> '+label;
+      parent.appendChild(span);
+      return span.querySelector('input');
+    }
+    async function load(){
+      const r = await fetch('../data/products.json', {cache:'no-store'});
+      const list = await r.json();
+      const grid = document.getElementById('grid');
+      const q = document.getElementById('q');
+      const cat = document.getElementById('cat');
+      const irr = document.getElementById('irr');
+      const sort = document.getElementById('sort');
+      const waves = document.getElementById('waves');
+      const tagsEl = document.getElementById('tags');
+      const count = document.getElementById('count');
+      const reset = document.getElementById('reset');
+
+      // Populate categories
+      [...new Set(list.map(p=>p.category).filter(Boolean))].sort().forEach(c=>{
+        const opt = document.createElement('option');
+        opt.value=c; opt.textContent=c; cat.appendChild(opt);
+      });
+      // Populate wavelength checkboxes
+      const waveInputs = WAVE_CHOICES.map(nm => createChip('w_'+nm, nm+' nm', waves));
+      // Populate tag chips
+      const uniqTags = [...new Set(list.flatMap(p=>p.tags||[]))].sort();
+      const tagInputs = uniqTags.map(t => createChip('t_'+t, '#'+t, tagsEl));
+
+      function apply(){
+        const query = q.value.trim().toLowerCase();
+        const catVal = cat.value;
+        const irrVal = parseFloat(irr.value || '0');
+        const selectedWaves = WAVE_CHOICES.filter((nm,i)=>waveInputs[i].checked);
+        const selectedTags = uniqTags.filter((t,i)=>tagInputs[i].checked);
+        let out = list.filter(p=>{
+          if(catVal && p.category!==catVal) return false;
+          if(irrVal && (p.irradiance_mW_cm2||0) < irrVal) return false;
+          if(selectedWaves.length){
+            const hasAll = selectedWaves.every(nm => containsNm(p.wavelengths, nm));
+            if(!hasAll) return false;
+          }
+          if(selectedTags.length){
+            const tags = p.tags||[];
+            if(!selectedTags.every(t => tags.includes(t))) return false;
+          }
+          if(query){
+            const hay = [p.name,p.category,p.wavelengths,(p.tags||[]).join(' ')].join(' ').toLowerCase();
+            if(!hay.includes(query)) return false;
+          }
+          return true;
+        });
+        if(sort.value==='name'){ out.sort((a,b)=> (a.name||'').localeCompare(b.name||'')); }
+        else if(sort.value==='irr'){ out.sort((a,b)=> (b.irradiance_mW_cm2||0) - (a.irradiance_mW_cm2||0)); }
+        grid.innerHTML='';
+        out.forEach(p=>{
+          const div = document.createElement('div');
+          div.className='card product';
+          div.innerHTML = `
+            <img src="../${p.img}" alt="${p.name}"/>
+            <div class="name">${p.name}</div>
+            <div class="small" style="margin-top:4px">${p.wavelengths}${p.irradiance_mW_cm2 ? ' • '+p.irradiance_mW_cm2+' mW/cm²' : ''}</div>
+            <div class="tags">${(p.tags||[]).map(t=>'<a class="tag" href="../tags/view.html?tag='+encodeURIComponent(t)+'">#'+t+'</a>').join(' ')}</div>
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-top:8px">
+              <span class="small">${p.price||''}</span>
+              <a class="btn alt" href="${p.link||'#'}">Details</a>
+            </div>
+          `;
+          grid.appendChild(div);
+        });
+        count.textContent = out.length + ' result(s)';
+      }
+
+      [q,cat,irr,sort].forEach(el=>el.addEventListener('input', apply));
+      [...document.querySelectorAll('#waves input, #tags input')].forEach(el=>el.addEventListener('change', apply));
+      reset.addEventListener('click', ()=>{
+        q.value=''; cat.value=''; irr.value=''; sort.value='name';
+        [...document.querySelectorAll('#waves input, #tags input')].forEach(el=>el.checked=false);
+        apply();
+      });
+
+      apply();
+    }
+    load();
+  </script>
+</body>
+</html>

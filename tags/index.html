@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Tags — Explore by Use Case | Moe Community Wellness</title>
+  <meta name="description" content="Browse all tags to find near‑infrared devices for skin, recovery, knee, back, panels, and more."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css"/>
+  <link rel="canonical" href="https://www.moecommunitycloud.com/tags"/>
+  <meta property="og:title" content="Tags — Explore by Use Case"/>
+  <meta property="og:description" content="Find devices by tags like skin, recovery, knee, back, panels, and more."/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:url" content="https://www.moecommunitycloud.com/tags"/>
+  <meta property="og:image" content="../assets/images/og-index.png"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:title" content="Tags — Explore by Use Case"/>
+  <meta name="twitter:description" content="Explore devices by tag."/>
+  <meta name="twitter:image" content="../assets/images/og-index.png"/>
+</head>
+<body class="plaid-bg">
+  <header class="nav">
+    <div class="row">
+      <div class="brand">
+        <div class="logo" aria-hidden="true"></div>
+        <div class="brand-name">Moe Community Wellness</div>
+        <span class="badge">Tags</span>
+      </div>
+      <nav>
+        <a href="../index.html">Home</a>
+        <a href="../oscillator.html">Oscillator</a>
+        <a href="../blog/index.html">Blog</a>
+        <a href="../resources/index.html">Resources</a>
+        <a href="../compare/index.html">Compare</a>
+        <a href="index.html">Tags</a>
+        <a href="../explore/index.html">Explore</a>
+      </nav>
+    </div>
+  </header>
+  <main>
+    <section class="section container">
+      <h1>All Tags</h1>
+      <p class="desc">Click a tag to view matching products. New tags appear automatically when you update <code>data/products.json</code>.</p>
+      <div class="grid grid-3" id="tagList"></div>
+    </section>
+  </main>
+  <footer>
+    <div class="container">
+      <div class="cols">
+        <div><strong>Moe Community Wellness</strong><br/><span class="small">© <span id="year"></span> Moe Community Cloud</span></div>
+        <div><div class="small">Links</div><a href="../index.html">Home</a><br/><a href="../oscillator.html">Oscillator</a></div>
+        <div><div class="small">Sitemap</div><a href="../sitemap.xml">sitemap.xml</a></div>
+      </div>
+    </div>
+  </footer>
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+    async function load(){
+      const r = await fetch('../data/products.json', {cache:'no-store'});
+      const list = await r.json();
+      const tags = new Map();
+      list.forEach(p => (p.tags||[]).forEach(t => tags.set(t, (tags.get(t)||0)+1)));
+      const container = document.getElementById('tagList');
+      [...tags.entries()].sort((a,b)=>a[0].localeCompare(b[0])).forEach(([t,count])=>{
+        const a = document.createElement('a');
+        a.className = 'card';
+        a.style.cursor='pointer';
+        a.href = 'view.html?tag=' + encodeURIComponent(t);
+        a.innerHTML = `<strong>#${t}</strong><div class="small">${count} product(s)</div>`;
+        container.appendChild(a);
+      });
+    }
+    load();
+  </script>
+</body>
+</html>
