@@ -12,7 +12,6 @@ async function handler(request: HttpRequest): Promise<HttpResponseInit> {
     const endpoint = (await getConfig("AZURE-OPENAI-ENDPOINT", ["AZURE_OPENAI_ENDPOINT"])).value;
     const apiKey = (await getConfig("AZURE-OPENAI-KEY", ["AZURE_OPENAI_KEY"])).value;
     const deployment = (await getConfig("AZURE-EMBEDDINGS-DEPLOYMENT", ["AZURE_EMBEDDINGS_DEPLOYMENT"])).value;
-
     const apiVersion = process.env.AZURE_OPENAI_API_VERSION || "2023-05-15";
     const url = `${endpoint}/openai/deployments/${deployment}/embeddings?api-version=${apiVersion}`;
 

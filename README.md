@@ -1,29 +1,49 @@
+# Moe Community Cloud — Complete Pack (v10)
 
-Moe Wellness — Chat + Advisor Drop‑in Kit
-=========================================
+This pack includes **everything** to get your site and API working with two clean workflows.
 
-Files:
-- chat-widget.js   → floating “Ask Moe” chat, streams from /api/chat
-- advisor.js       → “Find my device” modal; filters data/products.json client-side
-- styles-extra.css → CSS additions for both widgets
-- install-snippet.html → copy/paste script tags + CSS instructions
+## What’s inside
+- `.github/workflows/azure-static-web-apps-polite-tree-03e9ee20f.yml` — deploys the static site (root folder). **Does not touch the API.**
+- `.github/workflows/deploy.yml` — deploys `/api` to **moebucksfunctionsapp**.
+- `/api` — Azure Functions (TypeScript, Node 18) with endpoints:
+  - `GET /api/health`
+  - `POST /api/chat`
+  - `POST /api/embeddings`
+  - `POST /api/picks`
+  - `GET /api/nfl/scoreboard`
+  - `GET /api/nfl/season-events`
+- Static site files at repo root: `index.html`, `styles.css`, `script.js`.
 
-How to install:
-1) Copy `chat-widget.js` and `advisor.js` into your site root.
-2) Open each page (e.g., index.html, oscillator.html, blog, resources, compare, explore, tags):
-   Add **right before `</body>`**:
-     <script src="/chat-widget.js"></script>
-     <script src="/advisor.js"></script>
-3) Open your `styles.css` and append the contents of `styles-extra.css` (at the end is fine).
-4) Ensure your Azure Functions proxy is live at `/api/chat` and that SWA app settings include:
-   - AOAI_ENDPOINT = https://moebucksfunctionsapp-openai-8538.openai.azure.com/
-   - AOAI_KEY = (your Azure OpenAI key)
-5) Deploy. You should see:
-   - “Ask Moe” button (bottom-right)
-   - “Find my device” button (above it)
-   - Chat responses streaming; advisor shows product cards based on filters
+## Required repo secrets
+- **SWA:** `AZURE_STATIC_WEB_APPS_API_TOKEN_POLITE_TREE_03E9EE20F`
+- **Functions (choose one):**
+  - `AZURE_FUNCTIONAPP_PUBLISH_PROFILE` (recommended), or
+  - OIDC trio: `AZUREAPPSERVICE_CLIENTID_*`, `AZUREAPPSERVICE_TENANTID_*`, `AZUREAPPSERVICE_SUBSCRIPTIONID_*`
 
-Notes:
-- The chat history persists locally (last ~20 turns) using localStorage.
-- The advisor pulls from `/data/products.json`. Update that file to change results.
-- Both components inherit your site’s visual style (buttons, cards) and avoid clipping.
+## Function App settings (Configuration → Application settings)
+Set these (underscores are fine; code also supports Key Vault later):
+```
+AZURE_OPENAI_ENDPOINT = https://<your-ai>.openai.azure.com
+AZURE_OPENAI_KEY = <key>
+AZURE_OPENAI_DEPLOYMENT = <chat-deployment-name>
+AZURE_OPENAI_API_VERSION = 2024-02-15-preview   # optional
+AZURE_EMBEDDINGS_DEPLOYMENT = <emb-deployment>  # optional
+ALLOWED_ORIGINS = https://www.moecommunitycloud.com,https://moecommunitycloud.com,https://polite-tree-03e9ee20f.2.azurestaticapps.net
+# optional for Key Vault mode:
+KEY_VAULT_URL = https://<your-vault>.vault.azure.net
+```
+
+## How to use
+1. **Delete** any old workflows under `.github/workflows/` to avoid duplicates.
+2. Upload this pack’s folders to your repo (root), commit to **main**.
+3. Add the required **secrets** above.
+4. SWA will deploy the site; the Functions workflow will deploy `/api` when `api/**` changes.
+5. In `script.js`, update `API_BASE` if your Function App host differs.
+
+## Test
+- Open your site: https://polite-tree-03e9ee20f.2.azurestaticapps.net
+- Click **API Health** → shows JSON including where config was loaded from.
+- Try **Assistant** → sends to `/api/chat`.
+- Try **NFL Scoreboard** → loads today’s games (ESPN public JSON).
+
+*Generated: 2025-08-18T23:28:19.147738Z*

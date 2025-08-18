@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Moe Community Cloud</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <h1>Moe Community Cloud</h1>
+    <nav>
+      <a href="#chat">Chat</a>
+      <a href="#nfl">NFL Scores</a>
+      <a href="#health">API Health</a>
+    </nav>
+  </header>
+
+  <main>
+    <section id="chat">
+      <h2>Assistant</h2>
+      <form id="chat-form">
+        <input id="chat-input" placeholder="Ask Moe AI..." required />
+        <button type="submit">Send</button>
+      </form>
+      <pre id="chat-output"></pre>
+    </section>
+
+    <section id="nfl">
+      <h2>NFL Scoreboard</h2>
+      <div class="row">
+        <label>Date:
+          <input type="date" id="nfl-date">
+        </label>
+        <button id="nfl-load">Load</button>
+      </div>
+      <div id="nfl-list"></div>
+    </section>
+
+    <section id="health">
+      <h2>API Health</h2>
+      <button id="health-load">Check</button>
+      <pre id="health-output"></pre>
+    </section>
+  </main>
+
+  <footer>
+    <small>© Moe Community Cloud</small>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
