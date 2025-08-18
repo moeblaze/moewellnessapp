@@ -1,53 +1,243 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Moe Community Cloud</title>
-  <link rel="stylesheet" href="styles.css">
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Moe Community Wellness — Sound + Near‑Infrared Healing</title>
+  <meta name="description" content="Professional, minimal wellness hub combining sound healing tones and near‑infrared (NIR) light therapy. Learn, explore devices, and try our in‑browser healing oscillator."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css"/>
+
+  <!-- SEO -->
+  <link rel="canonical" href="https://www.moecommunitycloud.com/wellness"/>
+  <meta name="robots" content="index,follow"/>
+  <meta property="og:title" content="Moe Community Wellness — Sound & Near-Infrared Healing"/>
+  <meta property="og:description" content="Professional wellness hub for sound tones (396–963 Hz) and near-infrared light therapy (600–1200 nm). Learn, try our oscillator, and explore NIR devices."/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:url" content="https://www.moecommunitycloud.com/wellness"/>
+  <meta property="og:image" content="assets/images/og-index.png"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:title" content="Moe Community Wellness — Sound & NIR Healing"/>
+  <meta name="twitter:description" content="Sound healing + NIR photobiomodulation. Try the oscillator and learn best practices."/>
+  <meta name="twitter:image" content="assets/images/og-index.png"/>
+
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "Organization", "name": "Moe Community Wellness", "url": "https://www.moecommunitycloud.com/wellness", "logo": "assets/icons/icon-512.png"}, {"@type": "WebSite", "name": "Moe Community Wellness", "url": "https://www.moecommunitycloud.com/wellness"}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Is this medical advice?", "acceptedAnswer": {"@type": "Answer", "text": "No. This site is informational. Always consult a qualified professional for medical care."}}, {"@type": "Question", "name": "Which wavelengths are best?", "acceptedAnswer": {"@type": "Answer", "text": "Commonly used: 630\u2013660 nm (red) and 810\u2013850 nm (NIR). Some also use 1064 nm for deeper targets."}}, {"@type": "Question", "name": "Can I combine sound + NIR?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Sound supports relaxation while NIR targets cellular energy. Many users stack them."}}, {"@type": "Question", "name": "Will you add guided protocols?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. We plan to add OpenAI-powered guidance and Q&A."}}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.moecommunitycloud.com/wellness"}]}</script>
 </head>
-<body>
-  <header>
-    <h1>Moe Community Cloud</h1>
-    <nav>
-      <a href="#chat">Chat</a>
-      <a href="#nfl">NFL Scores</a>
-      <a href="#health">API Health</a>
-    </nav>
+<body class="plaid-bg">
+  <header class="nav">
+    <div class="row">
+      <div class="brand">
+        <div class="logo" aria-hidden="true"></div>
+        <div class="brand-name">Moe Community Wellness</div>
+        <span class="badge">Black & Red Plaid • Gold trim</span>
+      </div>
+      <nav>
+        <a href="#science">Science</a>
+        <a href="#oscillator">Oscillator</a>
+        <a href="#devices">Devices</a>
+        <a href="#articles">Articles</a>
+        <a href="#join">Join</a>
+        <a href="blog/index.html">Blog</a>
+        <a href="oscillator.html">Oscillator App</a>
+              <a href="resources/index.html">Resources</a>
+      </nav>
+    </div>
   </header>
 
   <main>
-    <section id="chat">
-      <h2>Assistant</h2>
-      <form id="chat-form">
-        <input id="chat-input" placeholder="Ask Moe AI..." required />
-        <button type="submit">Send</button>
-      </form>
-      <pre id="chat-output"></pre>
-    </section>
-
-    <section id="nfl">
-      <h2>NFL Scoreboard</h2>
-      <div class="row">
-        <label>Date:
-          <input type="date" id="nfl-date">
-        </label>
-        <button id="nfl-load">Load</button>
+    <section class="hero container">
+      <div class="hero-card">
+        <h1>Sound & Near‑Infrared Healing — minimal, powerful, professional.</h1>
+        <p class="lead">We combine <strong>sound healing tones</strong> (396–963 Hz) with <strong>red & NIR photobiomodulation</strong> (600–1200 nm) to support real cellular recovery and calm the nervous system. Replace images & prices later — the framework is ready for Azure Static Web Apps.</p>
+        <div class="cta">
+          <a class="btn" href="#oscillator">Try the Healing Oscillator</a>
+          <a class="btn alt" href="#devices">Explore NIR Devices</a>
+        </div>
+        <p class="small" style="margin-top:10px">Disclaimer: Informational only. Not medical advice.</p>
       </div>
-      <div id="nfl-list"></div>
+      <div class="card">
+        <img loading="lazy" src="assets/images/hero.svg" alt="Moe Community Wellness hero: sound and near-infrared healing visual"/>
+      </div>
     </section>
 
-    <section id="health">
-      <h2>API Health</h2>
-      <button id="health-load">Check</button>
-      <pre id="health-output"></pre>
+    <section id="science" class="section container">
+      <h2>Science snapshot: Sound vs Light</h2>
+      <p class="desc">Sound (396–963 Hz) helps via brainwave entrainment and stress reduction. Near‑infrared light (600–1200 nm) energizes mitochondria (ATP), reduces inflammation, and supports tissue/DNA repair pathways. Together: mind + body.</p>
+      <div class="grid grid-2">
+        <div class="card">
+          <h3>🎶 Sound Healing (Hz)</h3>
+          <ul>
+            <li>Vibrations in air (396, 417, 432, 528, 639, 741, 852, 963 Hz)</li>
+            <li>Targets nervous system & brain waves → calm, focus, sleep</li>
+            <li>Indirect support: lower stress → better recovery</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>🌈 Light Healing (nm)</h3>
+          <ul>
+            <li>Red & Near‑Infrared (e.g., 630, 660, 810, 830, 850, 1064 nm)</li>
+            <li>Photobiomodulation → ATP boost, circulation, anti‑inflammation</li>
+            <li>Direct cellular effects on skin, muscles, joints, nerves</li>
+          </ul>
+        </div>
+      </div>
+      <div class="card" style="margin-top:18px">
+        <img loading="lazy" src="assets/images/chart.svg" alt="Chart comparing sound healing and light (near-infrared) healing"/>
+      </div>
+      <div class="notice" style="margin-top:12px">We’ll connect OpenAI later for guided protocols and Q&A. This build is optimized for static hosting on Azure.</div>
     </section>
+
+    <section id="oscillator" class="section container">
+      <h2>Healing Oscillator — try tones instantly</h2>
+      <p class="desc">Tap a preset to play. Mix waveforms, set timer, and visualize the tone. (Desktop & mobile supported.)</p>
+
+      <div class="grid grid-2">
+        <div class="card">
+          <div style="display:grid;gap:10px">
+            <label>Frequency (Hz): <span id="freqLabel">528</span></label>
+            <input id="freq" type="range" min="50" max="1200" step="1" value="528" />
+            <div style="display:flex;flex-wrap:wrap;gap:8px">
+              <button class="btn alt preset" data-f="396">396</button>
+              <button class="btn alt preset" data-f="417">417</button>
+              <button class="btn alt preset" data-f="432">432</button>
+              <button class="btn alt preset" data-f="528">528</button>
+              <button class="btn alt preset" data-f="639">639</button>
+              <button class="btn alt preset" data-f="741">741</button>
+              <button class="btn alt preset" data-f="852">852</button>
+              <button class="btn alt preset" data-f="963">963</button>
+            </div>
+
+            <div style="display:flex;gap:8px;align-items:center;margin-top:6px">
+              <label for="wave">Waveform:</label>
+              <select id="wave">
+                <option value="sine">Sine</option>
+                <option value="triangle">Triangle</option>
+                <option value="square">Square</option>
+                <option value="sawtooth">Sawtooth</option>
+              </select>
+              <label for="minutes" style="margin-left:12px">Timer (min):</label>
+              <select id="minutes">
+                <option value="0">∞</option>
+                <option>5</option><option>10</option><option>15</option><option>20</option><option>30</option>
+              </select>
+            </div>
+
+            <div style="display:flex;gap:10px;margin-top:6px">
+              <button id="play" class="btn">Play</button>
+              <button id="stop" class="btn alt">Stop</button>
+              <input id="vol" type="range" min="0" max="1" step="0.01" value="0.3" title="Volume" />
+            </div>
+            <div class="small">Tip: Use headphones for meditation or external speakers for room resonance.</div>
+          </div>
+        </div>
+
+        <div class="card">
+          <canvas id="viz" width="800" height="280" style="width:100%;height:280px;border-radius:14px;border:1px solid rgba(231,198,92,0.2)"></canvas>
+        </div>
+      </div>
+    </section>
+
+    <section id="devices" class="section container">
+      <h2>NIR Devices — placeholders to replace later</h2>
+      <p class="desc">These are representative categories. Swap images, links, and pricing in <code>app.js</code> or directly in the HTML.</p>
+
+      <div class="grid grid-4" id="productGrid">
+        <!-- Cards injected by app.js for easy editing -->
+      </div>
+      <div class="notice" style="margin-top:12px">
+        Wavelengths to look for: <strong>630–660 nm</strong> (red) and <strong>810–850 nm</strong> (NIR). Optional: 1064 nm for deep penetration.
+      </div>
+    </section>
+
+    <section id="articles" class="section container">
+      <h2>Articles & Learning</h2>
+      <div class="grid grid-3">
+        <article class="card">
+          <h3>Photobiomodulation 101</h3>
+          <p>How red/NIR light interacts with mitochondria (cytochrome‑c oxidase), increasing ATP and modulating inflammation. Why wavelengths matter and what irradiance is.</p>
+        </article>
+        <article class="card">
+          <h3>Sound Tones for Calm</h3>
+          <p>Using 396–963 Hz to entrain brain waves (alpha/theta), down‑shift stress, and support recovery via the vagus nerve. Benefits pair well with NIR sessions.</p>
+        </article>
+        <article class="card">
+          <h3>Safety & Best Practices</h3>
+          <p>Start low, go slow. Keep LEDs perpendicular, eyes closed or shielded for bright panels, and avoid overexposure. Not a substitute for medical care.</p>
+        </article>
+      </div>
+    <div class="notice" style="margin-top:12px">Want deeper dives? <a href="blog/index.html">Read more in our blog</a>.</div>
+    </section>
+
+    <section id="join" class="section container">
+      <h2>Join the community</h2>
+      <p class="desc">Get protocol updates and product drops. (We’ll wire this to your backend later.)</p>
+      <div class="grid grid-2">
+        <div class="card">
+          <form class="form" onsubmit="event.preventDefault(); alert('Thanks — saved locally for now.');">
+            <input placeholder="Full name" required/>
+            <input type="email" placeholder="Email" required/>
+            <button class="btn" type="submit">Subscribe</button>
+          </form>
+          <p class="small" style="margin-top:8px">Styled with black & red plaid background and gold border accents.</p>
+        </div>
+        <div class="card">
+          <h3>Roadmap</h3>
+          <ul>
+            <li>Ship as Azure Static Web App</li>
+            <li>Connect OpenAI API for guided protocols</li>
+            <li>Add product CMS + checkout</li>
+            <li>Publish “how‑to” videos & FAQs</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  
+    <section id="faq" class="section container">
+      <h2>FAQ</h2>
+      <div class="grid grid-2">
+        <div class="card">
+          <strong>Is this medical advice?</strong>
+          <p class="small">No. This site is informational. Always consult a qualified professional for medical care.</p>
+          <strong>Which wavelengths are best?</strong>
+          <p class="small">Commonly used: 630–660 nm (red) and 810–850 nm (NIR). Some also use 1064 nm for deeper targets.</p>
+        </div>
+        <div class="card">
+          <strong>Can I combine sound + NIR?</strong>
+          <p class="small">Yes. Sound supports relaxation while NIR targets cellular energy. Many users stack them.</p>
+          <strong>Will you add guided protocols?</strong>
+          <p class="small">Yes. We plan to add OpenAI-powered guidance and Q&A.</p>
+        </div>
+      </div>
+    </section>
+    
   </main>
 
   <footer>
-    <small>© Moe Community Cloud</small>
+    <div class="container">
+      <div class="cols">
+        <div>
+          <strong>Moe Community Wellness</strong><br/>
+          <span class="small">Professional wellness hub • Sound & NIR</span><br/>
+          <span class="small">© <span id="year"></span> Moe Community Cloud</span>
+        </div>
+        <div>
+          <div class="small">Legal</div>
+          <a href="#science">Science</a><br/>
+          <a href="#articles">Articles</a>
+        </div>
+        <div>
+          <div class="small">Social</div>
+          <a href="https://www.moecommunitycloud.com" target="_blank" rel="noopener">Website</a><br/>
+          <a href="#" rel="noopener">YouTube</a>
+        </div>
+      </div>
+    </div>
   </footer>
 
-  <script src="script.js"></script>
+  <script src="app.js"></script>
 </body>
 </html>

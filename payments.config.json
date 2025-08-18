@@ -1,0 +1,11 @@
+{
+  "stripe": {
+    "payment_link_url": "https://buy.stripe.com/your_payment_link_here",
+    "publishable_key": "pk_live_xxx_replace_me"
+  },
+  "paypal": {
+    "client_id": "REPLACE_WITH_YOUR_PAYPAL_CLIENT_ID",
+    "currency": "USD",
+    "price": "9.99"
+  }
+}

@@ -1,0 +1,285 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Moe Community Wellness — Healing Oscillator</title>
+  <meta name="description" content="A premium, minimalist Healing Oscillator for sound wellness. Lifetime access for $9.99."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css"/>
+  <link rel="manifest" href="manifest.json"/>
+  <meta name="theme-color" content="#E7C65C">
+  <style>
+    .hero-slim{padding:28px 24px}
+    .price{font-size:32px;font-weight:800;color:var(--gold)}
+    .features{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:12px}
+    .features .card{min-height:120px}
+    @media(max-width:800px){.features{grid-template-columns:1fr}}
+    .checkout{display:grid;grid-template-columns:1.2fr 1fr;gap:18px}
+    @media(max-width:980px){.checkout{grid-template-columns:1fr}}
+    .guarantee{display:flex;gap:10px;align-items:center}
+  .card{padding-bottom:24px}
+main{padding-bottom:40px}
+</style>
+
+<style>
+  #demo .card{padding-bottom:32px}
+  #demo canvas{max-height:240px}
+.card{padding-bottom:24px}
+main{padding-bottom:40px}
+</style>
+
+
+  <!-- SEO -->
+  <link rel="canonical" href="https://www.moecommunitycloud.com/oscillator"/>
+  <meta name="robots" content="index,follow"/>
+  <meta property="og:title" content="Healing Oscillator — Whitelist License $9.99"/>
+  <meta property="og:description" content="Premium oscillator with solfeggio presets. One-time $9.99 whitelist license with full resale rights."/>
+  <meta property="og:type" content="product"/>
+  <meta property="og:url" content="https://www.moecommunitycloud.com/oscillator"/>
+  <meta property="og:image" content="assets/images/og-oscillator.png"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:title" content="Healing Oscillator — Whitelist License $9.99"/>
+  <meta name="twitter:description" content="Lifetime use. Unlimited resales. Keep 100% of profits."/>
+  <meta name="twitter:image" content="assets/images/og-oscillator.png"/>
+
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Product", "name": "Healing Oscillator \u2014 Whitelist License", "brand": {"@type": "Brand", "name": "Moe Community Wellness"}, "description": "Premium sound oscillator with solfeggio presets. Whitelist license allows unlimited resales.", "image": "assets/images/og-oscillator.png", "url": "https://www.moecommunitycloud.com/oscillator", "offers": {"@type": "Offer", "priceCurrency": "USD", "price": "9.99", "availability": "http://schema.org/InStock", "url": "https://www.moecommunitycloud.com/oscillator"}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.moecommunitycloud.com/wellness"}, {"@type": "ListItem", "position": 2, "name": "Oscillator", "item": "https://www.moecommunitycloud.com/oscillator"}]}</script>
+</head>
+<body class="plaid-bg">
+  <header class="nav">
+    <div class="row">
+      <div class="brand">
+        <div class="logo" aria-hidden="true"></div>
+        <div class="brand-name">Moe Community Wellness</div>
+        <span class="badge">Healing Oscillator</span>
+      </div>
+      <nav>
+        <a href="#demo">Demo</a>
+        <a href="#buy">Buy</a>
+        <a href="#faq">FAQ</a>
+              <a href="blog/index.html">Blog</a>
+              <a href="resources/index.html">Resources</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="container hero-slim">
+      <div class="hero-card">
+        <h1>Healing Oscillator — whitelist license for B2B resale.</h1>
+        <p class="lead">Premium tone generator with presets (396–963 Hz), waveform selection, timer, volume, and live visualizer. Built for meditation, focus, and recovery — and licensed for you to resell.</p>
+        <div class="guarantee notice">
+          <span>🔒 One-time purchase • Whitelist license • Lifetime use • Unlimited resales • Works offline (PWA-ready)</span>
+        </div>
+      </div>
+    </section>
+
+    <section id="demo" class="section container">
+      <h2>Try the demo</h2>
+      <p class="desc">A trimmed demo is included below. Full product unlocks advanced features and unlimited custom presets.</p>
+      <div class="grid grid-2">
+        <div class="card">
+          <div style="display:grid;gap:10px">
+            <label>Frequency (Hz): <span id="freqLabel">528</span></label>
+            <input id="freq" type="range" min="50" max="1200" step="1" value="528" />
+            <div style="display:flex;flex-wrap:wrap;gap:8px">
+              <button class="btn alt preset" data-f="396">396</button>
+              <button class="btn alt preset" data-f="417">417</button>
+              <button class="btn alt preset" data-f="432">432</button>
+              <button class="btn alt preset" data-f="528">528</button>
+              <button class="btn alt preset" data-f="639">639</button>
+              <button class="btn alt preset" data-f="741">741</button>
+              <button class="btn alt preset" data-f="852">852</button>
+              <button class="btn alt preset" data-f="963">963</button>
+            </div>
+
+            <div style="display:flex;gap:8px;align-items:center;margin-top:6px">
+              <label for="wave">Waveform:</label>
+              <select id="wave">
+                <option value="sine">Sine</option>
+                <option value="triangle">Triangle</option>
+                <option value="square">Square</option>
+                <option value="sawtooth">Sawtooth</option>
+              </select>
+              <label for="minutes" style="margin-left:12px">Timer (min):</label>
+              <select id="minutes">
+                <option value="0">∞</option>
+                <option>5</option><option>10</option><option>15</option><option>20</option><option>30</option>
+              </select>
+            </div>
+
+            <div style="display:flex;gap:10px;margin-top:6px">
+              <button id="play" class="btn">Play</button>
+              <button id="stop" class="btn alt">Stop</button>
+              <input id="vol" type="range" min="0" max="1" step="0.01" value="0.3" title="Volume" />
+            </div>
+            <div class="small">This demo runs in-browser using the Web Audio API. Use headphones for best results.</div>
+          </div>
+        </div>
+
+        <div class="card">
+          <canvas id="viz" width="800" height="280" style="width:100%;height:280px;border-radius:14px;border:1px solid rgba(231,198,92,0.2)"></canvas>
+        </div>
+      </div>
+    </section>
+
+    <section id="buy" class="section container">
+      <h2>Whitelist License — <span class="price">$9.99</span></h2>
+      <p class="desc">One-time payment. Lifetime use + Full Resale Rights. Install on your devices and resell as your own product.</p>
+
+      <div class="checkout">
+        <div class="card">
+          <h3>What you get</h3>
+          <div class="features">
+            <div class="card">
+              <strong>Preset pack</strong>
+              <div class="small">396–963 Hz + custom favorites</div>
+            </div>
+            <div class="card">
+              <strong>Advanced controls</strong>
+              <div class="small">Whitelist rights, session timers, fade in/out (advanced features ready for unlock)</div>
+            </div>
+            <div class="card">
+              <strong>Visualizer themes</strong>
+              <div class="small">Gold grid + waveform styles</div>
+            </div>
+          </div>
+          <div class="notice" style="margin-top:12px">Checkout placeholder only. Connect Stripe/PayPal later — button below is a stub.</div>
+          <div style="margin-top:12px;display:flex;gap:10px;flex-wrap:wrap">
+            <button id="installBtn" class="btn alt" style="display:none" onclick="installPWA()">Install App</button>
+            <button id="stripeBtn" class="btn">Buy with Stripe — $9.99</button>
+            <div id="paypal-button-container" style="min-height:48px"></div>
+            <button class="btn alt" onclick="document.getElementById('demo').scrollIntoView({behavior:'smooth'})">Try Demo Again</button>
+          </div>
+          <p class="small" style="margin-top:8px">30‑day satisfaction guarantee • Email delivery after purchase</p>
+        </div>
+
+        <div class="card">
+          <h3>License</h3>
+          <p class="small">
+            Business-ready whitelist license. You may resell or redistribute under your own brand. Keep 100% of profits.
+            Commercial use (classes, clinics) requires a separate license. Not medical advice.
+          </p>
+          <h3 style="margin-top:10px">How it works</h3>
+          <ol class="small">
+            <li>Click <em>Buy Now</em> (Stripe/PayPal to be connected).</li>
+            <li>Receive download link + license key via email.</li>
+            <li>Install as a PWA or run in your browser — offline ready.</li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <section id="faq" class="section container">
+      <h2>FAQ</h2>
+      <div class="grid grid-2">
+        <div class="card">
+          <strong>Does it work on mobile?</strong>
+          <p class="small">Yes. It runs in modern browsers on iOS/Android. Add to Home Screen for PWA-like offline use.</p>
+          <strong>What frequencies are included?</strong>
+          <p class="small">Core solfeggio presets (396–963 Hz) plus a free-tune slider (50–1200 Hz).</p>
+        </div>
+        <div class="card">
+          <strong>Can I export sessions?</strong>
+          <p class="small">Export feature will arrive in a free update. You’ll be able to save/share presets.</p>
+          <strong>Refunds?</strong>
+          <p class="small">30‑day satisfaction guarantee from date of purchase.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="cols">
+        <div>
+          <strong>Moe Community Wellness</strong><br/>
+          <span class="small">Healing Oscillator • Lifetime License</span><br/>
+          <span class="small">© <span id="year"></span> Moe Community Cloud</span>
+        </div>
+        <div>
+          <div class="small">Links</div>
+          <a href="index.html">Main Site</a><br/>
+          <a href="#buy">Buy</a>
+        </div>
+        <div>
+          <div class="small">Contact</div>
+          <a href="https://www.moecommunitycloud.com" target="_blank" rel="noopener">Website</a><br/>
+          <a href="#" rel="noopener">Support</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="oscillator.js"></script>
+  <script>
+// PWA install
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('service-worker.js');
+  });
+}
+let deferredPrompt;
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  deferredPrompt = e;
+  const btn = document.getElementById('installBtn');
+  if(btn) btn.style.display = 'inline-flex';
+});
+function installPWA(){
+  if(deferredPrompt){
+    deferredPrompt.prompt();
+    deferredPrompt.userChoice.then(()=>{ deferredPrompt=null; });
+  } else {
+    alert('Install prompt not available. Use your browser menu: "Add to Home Screen".');
+  }
+}
+</script>
+  <script>
+// Load payments config
+let PAYMENTS={};
+fetch('payments.config.json').then(r=>r.json()).then(cfg=>{
+  PAYMENTS = cfg;
+  // Stripe Payment Link button
+  const stripeBtn = document.getElementById('stripeBtn');
+  if (stripeBtn && cfg.stripe.payment_link_url && cfg.stripe.payment_link_url.includes('http')){
+    stripeBtn.onclick = ()=> window.location.href = cfg.stripe.payment_link_url;
+  } else if (stripeBtn){
+    stripeBtn.onclick = ()=> alert('Configure your Stripe Payment Link in payments.config.json');
+  }
+
+  // PayPal Smart Buttons
+  const ppContainer = document.getElementById('paypal-button-container');
+  if (ppContainer){
+    const cid = cfg.paypal.client_id || 'test';
+    const script = document.createElement('script');
+    script.src = `https://www.paypal.com/sdk/js?client-id=${cid}&currency=${cfg.paypal.currency||'USD'}`;
+    script.onload = ()=>{
+      if (window.paypal){
+        paypal.Buttons({
+          style: { shape: 'pill', color: 'gold', label: 'pay', layout: 'vertical' },
+          createOrder: function(data, actions) {
+            return actions.order.create({
+              purchase_units: [{
+                amount: { value: cfg.paypal.price || '9.99' },
+                description: "Moe Healing Oscillator — Whitelist License"
+              }]
+            });
+          },
+          onApprove: function(data, actions) {
+            return actions.order.capture().then(function(details) {
+              alert('Payment completed by ' + details.payer.name.given_name + '. (Wire up license email delivery next.)');
+            });
+          }
+        }).render('#paypal-button-container');
+      }
+    };
+    document.body.appendChild(script);
+  }
+});
+</script>
+</body>
+</html>
