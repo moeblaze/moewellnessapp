@@ -7,77 +7,9 @@
 <link rel="stylesheet" href="styles.css"/>
 </head>
 <body class="plaid-bg">
-<header class="nav"><div class="row">
-  <div class="brand">
-    <div class="logo" style="width:28px;height:28px;background:url(assets/images/og-index.png) center/cover"></div>
-    <div class="brand-name">Moe Community Wellness</div>
-    <span class="badge">B2B</span>
-  </div>
-  <nav>
-    <a href="index.html">Home</a>
-    <a href="oscillator.html">Oscillator</a>
-    <a href="blog/index.html">Blog</a>
-    <a href="resources/index.html">Resources</a>
-  </nav>
-</div></header>
-
-<main class="container section">
-  <div class="card">
-    <div class="name">Unlock Pro Mode</div>
-    <p class="small">Enable Value Pack features for B2B demo and reseller testing on this device.</p>
-    <div class="grid grid-2" style="margin-top:8px">
-      <label class="small">Access code (optional)
-        <input id="code" placeholder="e.g., MOE-PRO"/>
-      </label>
-      <div class="small">
-        <button class="btn" id="unlock">Enable Pro</button>
-        <button class="btn alt" id="lock">Disable Pro</button>
-      </div>
-    </div>
-    <div class="small" id="msg" style="margin-top:8px"></div>
-  </div>
-
-  <div class="card" style="margin-top:12px">
-    <div class="name">What Pro adds</div>
-    <ul class="small">
-      <li>Binaural & Isochronic engines</li>
-      <li>Waveform choice + LFO modulation</li>
-      <li>Layer up to 3 tones + noise bed</li>
-      <li>Preset packs (Focus, Calm, Sleep, Solfeggio)</li>
-      <li>Session history + preset export/import</li>
-    </ul>
-  </div>
-</main>
-
-<footer><div class="container small">© Moe Community Cloud</div></footer>
-
-<script>
-  // Accept ?pro=1 to auto-unlock
-  const params = new URLSearchParams(location.search);
-  if (params.get('pro') === '1') {
-    localStorage.setItem('moe_b2b_pro_access', 'true');
-  }
-  function status() {
-    return localStorage.getItem('moe_b2b_pro_access') === 'true' ? 'ON' : 'OFF';
-  }
-  function render() {
-    document.getElementById('msg').textContent = 'Pro Mode is ' + status();
-  }
-  document.getElementById('unlock').addEventListener('click', () => {
-    // optional simple gate — you can replace with your own logic later
-    const code = (document.getElementById('code').value || '').trim();
-    if (code && !/^MOE-/.test(code)) {
-      document.getElementById('msg').textContent = 'Hint: use a code starting with MOE- or leave it blank.';
-      return;
-    }
-    localStorage.setItem('moe_b2b_pro_access', 'true');
-    render();
-  });
-  document.getElementById('lock').addEventListener('click', () => {
-    localStorage.removeItem('moe_b2b_pro_access');
-    render();
-  });
-  render();
+<header class="nav"><div class="row"> <div class="brand"> <div class="logo" style="width:28px;height:28px;background:url(assets/images/og-index.png) center/cover"></div> <div class="brand-name">Moe Community Wellness</div> <span class="badge">B2B</span> </div> <nav> <a href="index.html">Home</a> <a href="oscillator.html">Oscillator</a> <a href="blog/index.html">Blog</a> </nav>
+</div></header> <main class="container section"> <div class="card"> <div class="name">Unlock Pro Mode</div> <p class="small">Enable Value Pack features for B2B demo and reseller testing on this device.</p> <div class="grid grid-2" style="margin-top:8px"> <label class="small">Access code (optional) <input id="code" placeholder="e.g., MOE-PRO"/> </label> <div class="small"> <button class="btn" id="unlock">Enable Pro</button> <button class="btn alt" id="lock">Disable Pro</button> </div> </div> <div class="small" id="msg" style="margin-top:8px"></div> </div> <div class="card" style="margin-top:12px"> <div class="name">What Pro adds</div> <ul class="small"> <li>Binaural & Isochronic engines</li> <li>Waveform choice + LFO modulation</li> <li>Layer up to 3 tones + noise bed</li> <li>Preset packs (Focus, Calm, Sleep, Solfeggio)</li> <li>Session history + preset export/import</li> </ul> </div>
+</main> <footer><div class="container small">© Moe Community Cloud</div></footer> <script> // Accept ?pro=1 to auto-unlock const params = new URLSearchParams(location.search); if (params.get('pro') === '1') { localStorage.setItem('moe_b2b_pro_access', 'true'); } function status() { return localStorage.getItem('moe_b2b_pro_access') === 'true' ? 'ON' : 'OFF'; } function render() { document.getElementById('msg').textContent = 'Pro Mode is ' + status(); } document.getElementById('unlock').addEventListener('click', () => { // optional simple gate — you can replace with your own logic later const code = (document.getElementById('code').value || '').trim(); if (code && !/^MOE-/.test(code)) { document.getElementById('msg').textContent = 'Hint: use a code starting with MOE- or leave it blank.'; return; } localStorage.setItem('moe_b2b_pro_access', 'true'); render(); }); document.getElementById('lock').addEventListener('click', () => { localStorage.removeItem('moe_b2b_pro_access'); render(); }); render();
 </script>
 </body>
 </html>
