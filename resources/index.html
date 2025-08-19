@@ -6,5 +6,60 @@
 <div class="brand"><div class="logo" style="width:28px;height:28px;background:url(../assets/images/og-index.png) center/cover"></div><div class="brand-name">Moe Community Wellness</div><span class="badge">Resources</span></div>
 <nav><a href="../index.html">Home</a><a href="../oscillator.html">Oscillator</a><a href="../blog/index.html">Blog</a><a href="index.html">Resources</a></nav>
 </div></header>
-<main class="container section"><div class="card"><div class="name">Resources</div><div class="small">Replace images and prices later.</div></div></main>
+<main class="container section"><div class="card"><div class="name">Resources</div><div class="small">Replace images and prices later.</div></div>
+  <h2 style="margin-top:18px">Sourcing gallery (auto-scan)</h2>
+  <div class="small">Paste a supplier URL (Alibaba, wholesaler.alibaba.com, m.alibaba.com). We’ll fetch the page’s preview image and show it here for sourcing only.</div>
+  <div class="card" style="margin-top:8px">
+    <form id="scanForm" onsubmit="return false" style="display:flex;gap:8px;flex-wrap:wrap">
+      <input id="scanUrl" placeholder="https://www.alibaba.com/product-detail/..." style="flex:1;min-width:260px"/>
+      <button class="btn" id="scanBtn">Scan</button>
+      <a class="btn alt" href="../data/suppliers.json" target="_blank" rel="noopener">View suppliers.json</a>
+    </form>
+    <div id="scanMsg" class="small" style="margin-top:6px"></div>
+    <div id="scanGrid" class="grid grid-3" style="margin-top:10px"></div>
+  </div>
+  <script>
+  async function addCard(item){
+    const grid = document.getElementById('scanGrid');
+    const div = document.createElement('div');
+    div.className = 'card';
+    div.innerHTML = `<div class='small'><a href='${item.url}' target='_blank' rel='noopener'>${item.title||'Source item'}</a></div>` +
+                    (item.image ? `<img src='${item.image}' alt='preview' style='width:100%;height:160px;object-fit:cover;border-radius:12px;margin-top:6px'/>` : `<div class='notice small' style='height:160px;display:flex;align-items:center;justify-content:center'>No preview found</div>`);
+    grid.appendChild(div);
+  }
+  async function bootstrapFromJson(){
+    try {
+      const r = await fetch('../data/suppliers.json');
+      const list = await r.json();
+      for(const row of list){
+        let image = row.image;
+        if(!image) {
+          try {
+            const s = await fetch(`../api/scrape?url=${encodeURIComponent(row.url)}`);
+            if (s.ok){ const js = await s.json(); image = js.image || ''; }
+          } catch {}
+        }
+        await addCard({ url: row.url, title: row.title, image });
+      }
+    } catch {}
+  }
+  async function doScan(){
+    const url = document.getElementById('scanUrl').value.trim();
+    const msg = document.getElementById('scanMsg');
+    msg.textContent = 'Scanning...';
+    try {
+      const r = await fetch(`../api/scrape?url=${encodeURIComponent(url)}`);
+      if(!r.ok){ msg.textContent = 'Scan failed.'; return; }
+      const data = await r.json();
+      msg.textContent = data.image ? 'Image found.' : 'No og:image found; still added.';
+      addCard(data);
+    } catch(e){
+      msg.textContent = 'Scan error.';
+    }
+  }
+  document.getElementById('scanBtn').addEventListener('click', doScan);
+  bootstrapFromJson();
+  </script>
+
+</main>
 <footer><div class="container small">© Moe Community Cloud</div></footer></body></html>
