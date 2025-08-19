@@ -1,140 +1,69 @@
 <!doctype html><html lang="en"><head>
 <meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Resources — Moe Community Wellness</title>
-<link rel="stylesheet" href="../styles.css"/></head>
-<body class="plaid-bg"><header class="nav"><div class="row">
-<div class="brand"><img class="logo" src="../assets/images/logo.svg" alt="Moe logo" style="width:28px;height:28px"/><div class="brand-name">Moe Community Wellness</div><span class="badge">Resources</span></div>
-<nav><a href="../index.html">Home</a><a href="../oscillator.html">Oscillator</a><a href="../blog/index.html">Blog</a><a href="index.html">Resources</a><a href="../resellers.html">Resellers</a></nav>
+<title>Resources: NIR Devices &amp; Guides — Moe Community Wellness</title>
+<link rel="stylesheet" href="../styles.css"/>
+<meta property="og:title" content="NIR Devices & Guides — Moe">
+<meta property="og:description" content="Explore product categories and sourcing candidates. Replace images and prices later.">
+<meta property="og:image" content="../assets/images/banner-1200x628.png">
+<meta name="twitter:card" content="summary_large_image">
+</head><body class="plaid-bg">
+<header class="nav"><div class="row">
+  <div class="brand"><div class="logo" style="width:28px;height:28px;background:url(../assets/images/og-index.png) center/cover"></div><div class="brand-name">Moe Community Wellness</div><span class="badge">Resources</span></div>
+  <nav><a href="../index.html">Home</a><a href="../oscillator.html">Oscillator</a><a href="../blog/index.html">Blog</a><a href="index.html">Resources</a><a href="../coach.html">Coach</a></nav>
 </div></header>
-<main class="container section"><div class="card"><div class="name">Resources</div><div class="small">Replace images and prices later.</div></div>
-  <h2 style="margin-top:18px">Sourcing gallery (auto-scan)</h2>
-  <div class="small">Paste a supplier URL (Alibaba, wholesaler.alibaba.com, m.alibaba.com). We’ll fetch the page’s preview image and show it here for sourcing only.</div>
-  <div class="card" style="margin-top:8px">
-    <form id="scanForm" onsubmit="return false" style="display:flex;gap:8px;flex-wrap:wrap">
-      <input id="scanUrl" placeholder="https://www.alibaba.com/product-detail/..." style="flex:1;min-width:260px"/>
-      <button class="btn" id="scanBtn">Scan</button>
-      <a class="btn alt" href="../data/suppliers.json" target="_blank" rel="noopener">View suppliers.json</a>
-    </form>
-    <div id="scanMsg" class="small" style="margin-top:6px"></div>
-    <div id="scanGrid" class="grid grid-3" style="margin-top:10px"></div>
-  </div>
-  <script>
-  async function addCard(item){
-    const grid = document.getElementById('scanGrid');
-    const div = document.createElement('div');
-    div.className = 'card';
-    div.innerHTML = `<div class='small'><a href='${item.url}' target='_blank' rel='noopener'>${item.title||'Source item'}</a></div>` +
-                    (item.image ? `<img src='${item.image}' alt='preview' style='width:100%;height:160px;object-fit:cover;border-radius:12px;margin-top:6px'/>` : `<div class='notice small' style='height:160px;display:flex;align-items:center;justify-content:center'>No preview found</div>`);
-    grid.appendChild(div);
-  }
-  async function bootstrapFromJson(){
-    try {
-      const r = await fetch('../data/suppliers.json');
-      const list = await r.json();
-      for(const row of list){
-        let image = row.image;
-        if(!image) {
-          try {
-            const s = await fetch(`../api/scrape?url=${encodeURIComponent(row.url)}`);
-            if (s.ok){ const js = await s.json(); image = js.image || ''; }
-          } catch {}
-        }
-        await addCard({ url: row.url, title: row.title, image });
-      }
-    } catch {}
-  }
-  async function doScan(){
-    const url = document.getElementById('scanUrl').value.trim();
-    const msg = document.getElementById('scanMsg');
-    msg.textContent = 'Scanning...';
-    try {
-      const r = await fetch(`../api/scrape?url=${encodeURIComponent(url)}`);
-      if(!r.ok){ msg.textContent = 'Scan failed.'; return; }
-      const data = await r.json();
-      msg.textContent = data.image ? 'Image found.' : 'No og:image found; still added.';
-      addCard(data);
-    } catch(e){
-      msg.textContent = 'Scan error.';
-    }
-  }
-  document.getElementById('scanBtn').addEventListener('click', doScan);
-  bootstrapFromJson();
-  </script>
+<main class="container section">
+  <h1>Resources: NIR Devices &amp; Guides</h1>
+  <p class="small">Explore product categories we discussed and learn how to choose wavelengths (630–660 nm red, 810–850 nm NIR, optional 1064 nm) and use them safely. <strong>Replace images and prices later.</strong></p>
 
+  <div class="grid grid-3" style="margin-top:12px">
+    <div class="card">
+      <div class="name">Face Masks (Red + NIR)</div>
+      <div class="small">633 nm + 830 nm for skin &amp; collagen</div>
+      <div class="tags"><span class="tag">Face</span><span class="tag">Skin</span><span class="tag">Collagen</span></div>
+      <div class="small" style="margin-top:6px"><strong>Source candidates</strong><ul><li><a href="https://www.alibaba.com/product-detail/633Nm-660nm-830Nm-850nm-High-Irradiance_1601224945765.html" target="_blank" rel="noopener">Face mask, 633/660/830/850 nm</a></li><li><a href="https://www.alibaba.com/product-detail/Medical-Led-Devices-Multi-Wavelength-630_1600870611980.html" target="_blank" rel="noopener">Multi‑wavelength face device 630–850 nm</a></li><li><a href="https://m.alibaba.com/showroom/830nm-led-therapy-mask.html" target="_blank" rel="noopener">830 nm therapy mask (category)</a></li></ul></div>
+    </div>
 
-  <h2 style="margin-top:18px">Sourcing gallery (auto-scan)</h2>
-  <div class="small">Paste Alibaba URLs (one per line). We’ll pull preview images first, then price &amp; description if available. Export your list when done.</div>
-  <div class="card" style="margin-top:8px">
-    <form id="bulkForm" onsubmit="return false">
-      <textarea id="bulkUrls" placeholder="https://www.alibaba.com/product-detail/...
-https://wholesaler.alibaba.com/product-detail/..." rows="5" style="width:100%;"></textarea>
-      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px">
-        <button class="btn" id="bulkScan">Bulk import</button>
-        <button class="btn alt" id="exportList">Export suppliers.json</button>
-        <a class="btn" href="../data/suppliers.json" target="_blank" rel="noopener">View current JSON</a>
-      </div>
-    </form>
-    <div id="bulkMsg" class="small" style="margin-top:6px"></div>
-    <div id="scanGrid" class="grid grid-3" style="margin-top:10px"></div>
+    <div class="card">
+      <div class="name">Knee Braces (660 + 850 nm)</div>
+      <div class="small">Joints &amp; athletes — circulation + recovery</div>
+      <div class="tags"><span class="tag">Knee</span><span class="tag">Joints</span><span class="tag">Athletes</span></div>
+      <div class="small" style="margin-top:6px"><strong>Source candidates</strong><ul><li><a href="https://www.alibaba.com/product-detail/Rechargeable-660nm-850nm-Infrared-Light-Therapy_1600964426516.html" target="_blank" rel="noopener">Rechargeable 660/850 nm knee brace</a></li><li><a href="https://www.alibaba.com/product-detail/Idealight-Knee-Pad-Red-Light-Therapy_1600943779658.html" target="_blank" rel="noopener">Idealight knee pad 660/850 nm</a></li><li><a href="https://www.alibaba.com/showroom/infrared-knee-brace.html" target="_blank" rel="noopener">Infrared knee brace listings</a></li></ul></div>
+    </div>
+
+    <div class="card">
+      <div class="name">Wrap Belts (Core/Back)</div>
+      <div class="small">660 + 850 nm for waist/back muscle relief</div>
+      <div class="tags"><span class="tag">Core</span><span class="tag">Back</span><span class="tag">Muscle</span></div>
+      <div class="small" style="margin-top:6px"><strong>Source candidates</strong><ul><li><a href="https://www.alibaba.com/product-detail/Red-Light-Belt-660nm-850nm-Infrared_1601449371190.html" target="_blank" rel="noopener">Red light belt 660/850 nm</a></li><li><a href="https://www.alibaba.com/product-detail/Wireless-Battery-Red-Light-Therapy-Belt_1600981934373.html" target="_blank" rel="noopener">Wireless battery belt 660/810/850 nm</a></li><li><a href="https://www.alibaba.com/product-detail/Kinreen-850-Nanometer-Infra-Belt-Wrap_1600280299537.html" target="_blank" rel="noopener">Kinreen infra belt/wrap</a></li></ul></div>
+    </div>
+
+    <div class="card">
+      <div class="name">Athletic Lamps</div>
+      <div class="small">810 + 850 nm for recovery &amp; performance</div>
+      <div class="tags"><span class="tag">Recovery</span><span class="tag">Gym</span><span class="tag">Athletes</span></div>
+      <div class="small" style="margin-top:6px"><strong>Source candidates</strong><ul><li><a href="https://m.alibaba.com/showroom/850nm-infrared-lamp-leds-therapy-device-sale.html" target="_blank" rel="noopener">850 nm lamp category</a></li><li><a href="https://www.alibaba.com/product-detail/Home-use-handheld-red-light-therapy_1601472053380.html" target="_blank" rel="noopener">Handheld 660/850 nm lamp</a></li><li><a href="https://www.alibaba.com/product-detail/810-850nm-Infrared-Lamp-Full-Body_1601460752907.html" target="_blank" rel="noopener">Full‑body infrared lamp (810/850)</a></li></ul></div>
+    </div>
+
+    <div class="card">
+      <div class="name">Home Panels</div>
+      <div class="small">Mid/full-size panels for larger coverage</div>
+      <div class="tags"><span class="tag">Home</span><span class="tag">Panels</span></div>
+      <div class="small" style="margin-top:6px"><strong>Source candidates</strong><ul><li><a href="https://www.alibaba.com/product-detail/Home-LED-Treatment-Near-Infrared-Red_1601044451837.html" target="_blank" rel="noopener">Panel 660/850 nm (1800W)</a></li><li><a href="https://www.alibaba.com/product-detail/SGROW-660nm-850nm-led-red-light_1600928039173.html" target="_blank" rel="noopener">SGROW panels 660/850 nm</a></li><li><a href="https://m.alibaba.com/showroom/660-850-nm-red-light-panel.html" target="_blank" rel="noopener">Category: 660/850 nm panels</a></li></ul></div>
+    </div>
   </div>
-  <script>
-  const items = [];
-  function cardHtml(item){
-    const img = item.image ? `<img src='${item.image}' alt='preview' style='width:100%;height:160px;object-fit:cover;border-radius:12px;margin-top:6px'/>` : `<div class='notice small' style='height:160px;display:flex;align-items:center;justify-content:center'>No preview</div>`;
-    const desc = item.description ? `<div class='small' style='margin-top:4px'>${item.description.slice(0,160)}...</div>` : '';
-    const price = item.price ? `<div class='small'><strong>${item.price}</strong></div>` : '';
-    return `<div class='card'><div class='small'><a href='${item.url}' target='_blank' rel='noopener'>${item.title||'Source item'}</a></div>${img}${price}${desc}</div>`;
-  }
-  async function addCard(item){
-    items.push(item);
-    const grid = document.getElementById('scanGrid');
-    const div = document.createElement('div');
-    div.innerHTML = cardHtml(item);
-    grid.appendChild(div.firstChild);
-  }
-  async function fetchOne(u){
-    try{
-      const r = await fetch(`../api/scrape?url=${encodeURIComponent(u)}`);
-      if(!r.ok) return { url:u, title:u };
-      const js = await r.json();
-      return js;
-    }catch{ return { url:u, title:u }; }
-  }
-  async function bootstrapFromJson(){
-    try{
-      const r = await fetch('../data/suppliers.json');
-      const list = await r.json();
-      for(const row of list){
-        let data = { url: row.url, title: row.title, image: row.image||'', description: row.description||'', price: row.price||'' };
-        if(!data.image || !data.description || !data.price){
-          const s = await fetchOne(row.url);
-          data = Object.assign(data, s);
-        }
-        await addCard(data);
-      }
-    }catch{}
-  }
-  async function doBulk(){
-    const msg = document.getElementById('bulkMsg');
-    const txt = document.getElementById('bulkUrls').value.trim();
-    if(!txt){ msg.textContent = 'Add one or more URLs first.'; return; }
-    const urls = [...new Set(txt.split(/\s+/).filter(x=>x.startsWith('http')))].slice(0,50);
-    msg.textContent = 'Scanning '+urls.length+' URL(s)...';
-    for(const u of urls){
-      const data = await fetchOne(u);
-      await addCard(data);
-    }
-    msg.textContent = 'Done.';
-  }
-  function exportJson(){
-    const data = items.map(x => ({ category:'', title:x.title||'', url:x.url, image:x.image||'', description:x.description||'', price:x.price||'', supplier:'' }));
-    const blob = new Blob([JSON.stringify(data, null, 2)], {type:'application/json'});
-    const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'suppliers.json'; a.click();
-  }
-  document.getElementById('bulkScan').addEventListener('click', doBulk);
-  document.getElementById('exportList').addEventListener('click', exportJson);
-  bootstrapFromJson();
-  </script>
+
+  <div class="notice small" style="margin-top:12px">
+    <strong>Due diligence checklist</strong>
+    <ul>
+      <li>Confirm <em>wavelength bins</em> (e.g., 660 ±10 nm, 850 ±10 nm) and total LED count.</li>
+      <li>Request measured <em>irradiance</em> at specific distances (mW/cm²) and safety certifications (FCC/CE/ROHS).</li>
+      <li>Check power, thermal management, and <em>duty cycle</em> for wearables.</li>
+      <li>Ask for OEM/ODM options: branding, packaging, manuals.</li>
+      <li>Agree on MOQ, lead time, QC sampling, and warranty terms.</li>
+    </ul>
+  </div>
+
+  <div class="small" style="margin-top:10px">Tip: keep all claims educational and avoid medical promises when listing products.</div>
 </main>
-
-<footer><div class="container small">© Moe Community Cloud</div></footer></body></html>
+<footer><div class="container small">© Moe Community Cloud</div></footer>
+</body></html>

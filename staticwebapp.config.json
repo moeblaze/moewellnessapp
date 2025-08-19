@@ -4,11 +4,14 @@
     "exclude": [
       "/assets/*",
       "/blog/*",
+      "/resources/*",
       "/oscillator.html",
+      "/coach.html",
       "/sitemap.xml",
       "/robots.txt",
       "/manifest.json",
-      "/service-worker.js"
+      "/service-worker.js",
+      "/api/*"
     ]
   },
   "mimeTypes": {

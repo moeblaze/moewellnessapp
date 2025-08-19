@@ -125,19 +125,3 @@ img, canvas, video{ max-width:100%; display:block; }
 
 /* Long text wrapping in cards */
 .card p, .card .small, .card .name{ overflow-wrap:anywhere; word-break:break-word; }
-
-
-/* === HOTFIX: prevent clipped cards/sections and ensure scrolling === */
-html, body { min-height: 100%; height: auto; overflow-x: hidden; }
-* { min-width: 0; }
-.nav { position: sticky; top: 0; z-index: 1000; }
-main, .section { padding-top: 12px; }
-.card { overflow: visible; }
-img, video { max-width: 100%; height: auto; display: block; }
-.product img { height: auto; aspect-ratio: 16 / 10; object-fit: cover; }
-.grid { align-content: start; }
-footer { position: static; }
-/* iOS safe-area padding to avoid bottom cropping in PWA */
-@supports (padding: max(0px)) {
-  body { padding-bottom: max(16px, env(safe-area-inset-bottom)); }
-}

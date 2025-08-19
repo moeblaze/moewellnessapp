@@ -1,9 +1,7 @@
 {
   "name": "moe-api",
   "private": true,
-  "type": "module",
   "engines": {
     "node": ">=18"
-  },
-  "dependencies": {}
+  }
 }
