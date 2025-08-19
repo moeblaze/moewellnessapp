@@ -162,3 +162,14 @@ async function askAssistant(prompt){
   return "Coming soon…";
 }
 */
+
+
+// HOTFIX: ensure the page can scroll even if some legacy style injected overflow:hidden
+document.addEventListener('DOMContentLoaded', () => {
+  try {
+    const el = document.scrollingElement || document.documentElement;
+    if (getComputedStyle(el).overflowY === 'hidden') {
+      el.style.overflowY = 'auto';
+    }
+  } catch {}
+});
