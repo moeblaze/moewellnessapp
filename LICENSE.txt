@@ -1,0 +1,10 @@
+Moe Healing Oscillator — Whitelist License
+
+You are granted a perpetual, non-exclusive license to:
+- Use the product personally.
+- Resell the compiled web app under your own brand and keep 100% of profits.
+
+Restrictions:
+- You may not redistribute the source files to other parties for resale rights.
+- You may not claim the product provides medical treatment or cures.
+- No liability is assumed for wellness outcomes; not medical advice.
