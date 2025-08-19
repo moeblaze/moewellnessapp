@@ -1,9 +1,20 @@
-# Moe Wellness — uploaded site
-This repo packages your last best working site for easy GitHub + Azure Static Web Apps deployment.
+# Moe Healing Oscillator — Reseller Kit
 
-## Deploy
-1. Push to GitHub (branch `main`).
-2. In Azure Portal, connect this repo to your Static Web App **or** add secret `AZURE_STATIC_WEB_APS_TOKEN` and let the workflow deploy.
-3. Paths: App `/` (no API).
+## What you can do
+- Resell the Healing Oscillator under your own brand.
+- Set your own price and keep 100% of profits.
+- Use included images and copy in your listings.
 
-> PWA note: `manifest.json` currently sets `start_url` to `/wellness_nir_site_v1/oscillator.html`. You may update to `/oscillator.html` if desired.
+## What you cannot do
+- Do not redistribute source files to create new resellers.
+- Do not claim medical treatment or cures (informational wellness tool).
+
+## Quick Start
+1) Replace the PayPal client ID and Stripe Payment Link in `payments.config.json`.
+2) Upload to your site or sell via your storefront.
+3) Optional: make it installable (PWA) — manifest and service worker included.
+
+## Marketing Tips
+- Lead with benefits: calm, focus, sleep, wellness routines.
+- Bundle with guided meditations or breathwork.
+- Offer a 30‑day satisfaction guarantee.

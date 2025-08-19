@@ -1,7 +1,7 @@
 {
   "name": "Moe Healing Oscillator",
   "short_name": "Oscillator",
-  "start_url": "/wellness_nir_site_v1/oscillator.html",
+  "start_url": "/oscillator.html",
   "display": "standalone",
   "background_color": "#0b0b0c",
   "theme_color": "#E7C65C",
