@@ -1,0 +1,38 @@
+[
+  {
+    "name": "Alpha 8 Hz \u2014 Study",
+    "engine": "Binaural",
+    "wave": "sine",
+    "freq": 220,
+    "beat": 8,
+    "lfoRate": 0.2,
+    "lfoDepth": 0.01
+  },
+  {
+    "name": "Alpha 10 Hz \u2014 Focus",
+    "engine": "Binaural",
+    "wave": "sine",
+    "freq": 220,
+    "beat": 10,
+    "lfoRate": 0.2,
+    "lfoDepth": 0.01
+  },
+  {
+    "name": "Alpha 12 Hz \u2014 Energy",
+    "engine": "Binaural",
+    "wave": "sine",
+    "freq": 240,
+    "beat": 12,
+    "lfoRate": 0.25,
+    "lfoDepth": 0.01
+  },
+  {
+    "name": "Iso Alpha 10 Hz \u2014 Drive",
+    "engine": "Isochronic",
+    "wave": "square",
+    "freq": 400,
+    "beat": 10,
+    "lfoRate": 0,
+    "lfoDepth": 0
+  }
+]

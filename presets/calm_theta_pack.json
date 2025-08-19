@@ -1,0 +1,29 @@
+[
+  {
+    "name": "Theta 6 Hz \u2014 Calm",
+    "engine": "Binaural",
+    "wave": "sine",
+    "freq": 200,
+    "beat": 6,
+    "lfoRate": 0.2,
+    "lfoDepth": 0.01
+  },
+  {
+    "name": "Theta 5 Hz \u2014 Unwind",
+    "engine": "Binaural",
+    "wave": "sine",
+    "freq": 180,
+    "beat": 5,
+    "lfoRate": 0.18,
+    "lfoDepth": 0.01
+  },
+  {
+    "name": "Iso Theta 6 Hz \u2014 Float",
+    "engine": "Isochronic",
+    "wave": "sine",
+    "freq": 396,
+    "beat": 6,
+    "lfoRate": 0,
+    "lfoDepth": 0
+  }
+]

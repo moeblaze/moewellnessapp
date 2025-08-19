@@ -1,0 +1,92 @@
+[
+  {
+    "name": "174 Hz \u2014 Relax Base",
+    "engine": "Single",
+    "wave": "sine",
+    "freq": 174,
+    "beat": 0,
+    "lfoRate": 0.1,
+    "lfoDepth": 0.01
+  },
+  {
+    "name": "285 Hz \u2014 Restore",
+    "engine": "Single",
+    "wave": "sine",
+    "freq": 285,
+    "beat": 0,
+    "lfoRate": 0.1,
+    "lfoDepth": 0.01
+  },
+  {
+    "name": "396 Hz \u2014 Ease",
+    "engine": "Single",
+    "wave": "sine",
+    "freq": 396,
+    "beat": 0,
+    "lfoRate": 0.1,
+    "lfoDepth": 0.01
+  },
+  {
+    "name": "417 Hz \u2014 Shift",
+    "engine": "Single",
+    "wave": "sine",
+    "freq": 417,
+    "beat": 0,
+    "lfoRate": 0.1,
+    "lfoDepth": 0.01
+  },
+  {
+    "name": "432 Hz \u2014 Center",
+    "engine": "Single",
+    "wave": "sine",
+    "freq": 432,
+    "beat": 0,
+    "lfoRate": 0.15,
+    "lfoDepth": 0.02
+  },
+  {
+    "name": "528 Hz \u2014 Bright",
+    "engine": "Single",
+    "wave": "sine",
+    "freq": 528,
+    "beat": 0,
+    "lfoRate": 0.15,
+    "lfoDepth": 0.02
+  },
+  {
+    "name": "639 Hz \u2014 Connect",
+    "engine": "Single",
+    "wave": "sine",
+    "freq": 639,
+    "beat": 0,
+    "lfoRate": 0.15,
+    "lfoDepth": 0.02
+  },
+  {
+    "name": "741 Hz \u2014 Clear",
+    "engine": "Single",
+    "wave": "sine",
+    "freq": 741,
+    "beat": 0,
+    "lfoRate": 0.12,
+    "lfoDepth": 0.02
+  },
+  {
+    "name": "852 Hz \u2014 Aware",
+    "engine": "Single",
+    "wave": "sine",
+    "freq": 852,
+    "beat": 0,
+    "lfoRate": 0.12,
+    "lfoDepth": 0.02
+  },
+  {
+    "name": "963 Hz \u2014 Crown",
+    "engine": "Single",
+    "wave": "sine",
+    "freq": 963,
+    "beat": 0,
+    "lfoRate": 0.1,
+    "lfoDepth": 0.02
+  }
+]

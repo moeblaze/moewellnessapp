@@ -1,0 +1,29 @@
+[
+  {
+    "name": "Delta 3 Hz \u2014 Drift",
+    "engine": "Binaural",
+    "wave": "sine",
+    "freq": 120,
+    "beat": 3,
+    "lfoRate": 0.1,
+    "lfoDepth": 0.02
+  },
+  {
+    "name": "Delta 2 Hz \u2014 Deep",
+    "engine": "Binaural",
+    "wave": "sine",
+    "freq": 100,
+    "beat": 2,
+    "lfoRate": 0.08,
+    "lfoDepth": 0.02
+  },
+  {
+    "name": "Iso Delta 2.5 Hz \u2014 Down",
+    "engine": "Isochronic",
+    "wave": "sine",
+    "freq": 174,
+    "beat": 2.5,
+    "lfoRate": 0,
+    "lfoDepth": 0
+  }
+]

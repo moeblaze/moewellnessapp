@@ -18,3 +18,10 @@
 - Lead with benefits: calm, focus, sleep, wellness routines.
 - Bundle with guided meditations or breathwork.
 - Offer a 30‑day satisfaction guarantee.
+
+
+## Value Pack (Oscillator Pro)
+- New engines: Single • Binaural • Isochronic
+- Waveforms, LFO vibrato/tremolo, layers (up to 3), noise bed
+- Timer + fade, session history
+- Preset Packs in `/presets` (click buttons on Oscillator to load; works offline if cached)
