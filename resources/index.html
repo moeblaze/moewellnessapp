@@ -61,5 +61,80 @@
   bootstrapFromJson();
   </script>
 
+
+  <h2 style="margin-top:18px">Sourcing gallery (auto-scan)</h2>
+  <div class="small">Paste Alibaba URLs (one per line). We’ll pull preview images first, then price &amp; description if available. Export your list when done.</div>
+  <div class="card" style="margin-top:8px">
+    <form id="bulkForm" onsubmit="return false">
+      <textarea id="bulkUrls" placeholder="https://www.alibaba.com/product-detail/...
+https://wholesaler.alibaba.com/product-detail/..." rows="5" style="width:100%;"></textarea>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px">
+        <button class="btn" id="bulkScan">Bulk import</button>
+        <button class="btn alt" id="exportList">Export suppliers.json</button>
+        <a class="btn" href="../data/suppliers.json" target="_blank" rel="noopener">View current JSON</a>
+      </div>
+    </form>
+    <div id="bulkMsg" class="small" style="margin-top:6px"></div>
+    <div id="scanGrid" class="grid grid-3" style="margin-top:10px"></div>
+  </div>
+  <script>
+  const items = [];
+  function cardHtml(item){
+    const img = item.image ? `<img src='${item.image}' alt='preview' style='width:100%;height:160px;object-fit:cover;border-radius:12px;margin-top:6px'/>` : `<div class='notice small' style='height:160px;display:flex;align-items:center;justify-content:center'>No preview</div>`;
+    const desc = item.description ? `<div class='small' style='margin-top:4px'>${item.description.slice(0,160)}...</div>` : '';
+    const price = item.price ? `<div class='small'><strong>${item.price}</strong></div>` : '';
+    return `<div class='card'><div class='small'><a href='${item.url}' target='_blank' rel='noopener'>${item.title||'Source item'}</a></div>${img}${price}${desc}</div>`;
+  }
+  async function addCard(item){
+    items.push(item);
+    const grid = document.getElementById('scanGrid');
+    const div = document.createElement('div');
+    div.innerHTML = cardHtml(item);
+    grid.appendChild(div.firstChild);
+  }
+  async function fetchOne(u){
+    try{
+      const r = await fetch(`../api/scrape?url=${encodeURIComponent(u)}`);
+      if(!r.ok) return { url:u, title:u };
+      const js = await r.json();
+      return js;
+    }catch{ return { url:u, title:u }; }
+  }
+  async function bootstrapFromJson(){
+    try{
+      const r = await fetch('../data/suppliers.json');
+      const list = await r.json();
+      for(const row of list){
+        let data = { url: row.url, title: row.title, image: row.image||'', description: row.description||'', price: row.price||'' };
+        if(!data.image || !data.description || !data.price){
+          const s = await fetchOne(row.url);
+          data = Object.assign(data, s);
+        }
+        await addCard(data);
+      }
+    }catch{}
+  }
+  async function doBulk(){
+    const msg = document.getElementById('bulkMsg');
+    const txt = document.getElementById('bulkUrls').value.trim();
+    if(!txt){ msg.textContent = 'Add one or more URLs first.'; return; }
+    const urls = [...new Set(txt.split(/\s+/).filter(x=>x.startsWith('http')))].slice(0,50);
+    msg.textContent = 'Scanning '+urls.length+' URL(s)...';
+    for(const u of urls){
+      const data = await fetchOne(u);
+      await addCard(data);
+    }
+    msg.textContent = 'Done.';
+  }
+  function exportJson(){
+    const data = items.map(x => ({ category:'', title:x.title||'', url:x.url, image:x.image||'', description:x.description||'', price:x.price||'', supplier:'' }));
+    const blob = new Blob([JSON.stringify(data, null, 2)], {type:'application/json'});
+    const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'suppliers.json'; a.click();
+  }
+  document.getElementById('bulkScan').addEventListener('click', doBulk);
+  document.getElementById('exportList').addEventListener('click', exportJson);
+  bootstrapFromJson();
+  </script>
 </main>
+
 <footer><div class="container small">© Moe Community Cloud</div></footer></body></html>

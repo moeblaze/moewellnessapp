@@ -19,10 +19,15 @@ async function fetchHtml(url){
   const text = await r.text();
   return text;
 }
-function extract(meta, prop){
-  const re = new RegExp(`<meta[^>]+property=[\"']${prop}[\"'][^>]+content=[\"']([^\"]+)`, 'i');
-  const m = meta.match(re);
+function metaExtract(head, prop, by='property'){
+  const re = new RegExp(`<meta[^>]+${by}=[\"']${prop}[\"'][^>]+content=[\"']([^\"]+)`, 'i');
+  const m = head.match(re);
   return m ? m[1] : null;
+}
+function regexPrice(txt){
+  // heuristics for "US $99.00" or "$99 - $199" etc.
+  const m = txt.match(/(?:US\s*\$|\$)\s*([0-9]+(?:[.,][0-9]{2})?(?:\s*[-–]\s*\$?[0-9]+(?:[.,][0-9]{2})?)?)/i);
+  return m ? (m[0].replace(/\s+/g,' ').trim()) : null;
 }
 module.exports = async function (context, req) {
   if (req.method === 'OPTIONS') { context.res = cors({ status: 200 }); return; }
@@ -34,9 +39,27 @@ module.exports = async function (context, req) {
   try {
     const html = await fetchHtml(url);
     const head = (html.match(/<head[\s\S]*?<\/head>/i)||[])[0] || html;
-    const image = extract(head, 'og:image') || extract(head, 'twitter:image') || null;
-    const title = extract(head, 'og:title') || (head.match(/<title>([^<]+)<\/title>/i)||[])[1] || null;
-    context.res = cors({ status: 200, headers: { 'content-type':'application/json' }, body: { url, title, image } });
+    const title = metaExtract(head, 'og:title') || (head.match(/<title>([^<]+)<\/title>/i)||[])[1] || null;
+    const image = metaExtract(head, 'og:image') || metaExtract(head, 'twitter:image') || null;
+    const description = metaExtract(head, 'og:description') || metaExtract(head, 'description','name') || null;
+    // try some JSON-LD offers
+    let price = null;
+    const jsonlds = [...html.matchAll(/<script[^>]*type=["']application\/ld\+json["'][^>]*>([\s\S]*?)<\/script>/ig)].map(m => m[1]);
+    for (const js of jsonlds) {
+      try {
+        const data = JSON.parse(js.trim());
+        const items = Array.isArray(data) ? data : [data];
+        for (const it of items) {
+          const priceFound = it?.offers?.price || it?.offers?.lowPrice || it?.price;
+          if (priceFound) { price = priceFound; break; }
+        }
+        if (price) break;
+      } catch {}
+    }
+    if (!price) {
+      price = regexPrice(head) || regexPrice(html);
+    }
+    context.res = cors({ status: 200, headers: { 'content-type':'application/json' }, body: { url, title, image, description, price } });
   } catch (e) {
     context.log.error(e);
     context.res = cors({ status: 500, body: { error: e.message } });
