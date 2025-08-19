@@ -1,0 +1,92 @@
+<!doctype html><html lang="en"><head>
+<meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Checkout — Moe Community Wellness (Demo)</title>
+<link rel="stylesheet" href="styles.css"/>
+<meta name="description" content="Demo checkout — no payment is collected.">
+</head>
+<body class="plaid-bg">
+<header class="nav"><div class="row">
+  <div class="brand"><div class="logo" style="width:28px;height:28px;background:url(assets/images/og-index.png) center/cover"></div><div class="brand-name">Moe Community Wellness</div><span class="badge">Checkout</span></div>
+  <nav><a href="index.html">Home</a><a href="products/nir-panel.html">Products</a><a href="oscillator.html">Oscillator</a><a href="blog/index.html">Blog</a><a href="resources/index.html">Resources</a><a href="coach.html">Coach</a></nav>
+</div></header>
+
+<main class="container section">
+  <div class="grid grid-2">
+    <div class="card">
+      <div class="name">Order Summary</div>
+      <div id="summary" class="small"></div>
+    </div>
+    <div class="card">
+      <div class="name">Shipping details</div>
+      <form id="form" class="small" onsubmit="return false" style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+        <label style="grid-column:1/3">Full name<br><input id="name" required></label>
+        <label style="grid-column:1/3">Email<br><input id="email" type="email" required></label>
+        <label style="grid-column:1/3">Address<br><input id="addr" required></label>
+        <label>City<br><input id="city" required></label>
+        <label>State/Region<br><input id="state" required></label>
+        <label>Postal code<br><input id="zip" required></label>
+        <label style="grid-column:1/3">Country<br><input id="country" value="USA" required></label>
+        <div style="grid-column:1/3;display:flex;gap:8px;align-items:center;margin-top:6px">
+          <button class="btn primary" id="place">Place Order (Demo)</button>
+          <span class="small">No payment collected — you’ll see a confirmation screen.</span>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="notice small" style="margin-top:12px"><strong>Note:</strong> This is a demo checkout to collect interest only. No medical claims. Educational wellness product.</div>
+</main>
+
+<footer><div class="container small">© Moe Community Cloud</div></footer>
+
+<script>
+const PRODUCTS = [];
+
+// helpers
+function q(k){return new URLSearchParams(location.search).get(k)}
+function money(n){return '$' + (Math.round(n*100)/100).toFixed(2)}
+
+const slug = q('product') || (PRODUCTS[0] && PRODUCTS[0].slug) || 'nir-panel';
+const qty = Math.max(1, parseInt(q('qty')||'1',10));
+
+const product = PRODUCTS.find(p=>p.slug===slug) || PRODUCTS[0];
+const price = product ? product.price : 100;
+const subtotal = price * qty;
+const shipping = 0;
+const total = subtotal + shipping;
+
+document.getElementById('summary').innerHTML = `
+  <div class="row" style="align-items:flex-start;gap:12px">
+    <img src="${product.images && product.images[0] || 'assets/images/og-index.png'}" alt="" style="width:80px;height:80px;object-fit:cover;border-radius:8px;"/>
+    <div style="flex:1">
+      <div><strong>${product.name || 'Product'}</strong></div>
+      <div class="small">Qty: ${qty}</div>
+      <div class="small">Price: ${money(price)}</div>
+    </div>
+  </div>
+  <hr style="margin:8px 0;border:0;border-top:1px solid rgba(255,255,255,.12)"/>
+  <div class="row" style="justify-content:space-between"><span>Subtotal</span><span>${money(subtotal)}</span></div>
+  <div class="row" style="justify-content:space-between"><span>Shipping</span><span>${money(shipping)}</span></div>
+  <div class="row" style="justify-content:space-between;font-weight:700"><span>Total</span><span>${money(total)}</span></div>
+`;
+
+document.getElementById('place').addEventListener('click', ()=>{
+  const name = document.getElementById('name').value.trim();
+  const email = document.getElementById('email').value.trim();
+  const addr = document.getElementById('addr').value.trim();
+  const city = document.getElementById('city').value.trim();
+  const state = document.getElementById('state').value.trim();
+  const zip = document.getElementById('zip').value.trim();
+  const country = document.getElementById('country').value.trim();
+  if(!name || !email || !addr || !city || !state || !zip || !country){ alert('Please complete all fields.'); return; }
+  const orderId = 'MOE-' + Math.random().toString(36).slice(2,8).toUpperCase();
+  const order = { orderId, slug, qty, price, subtotal, shipping, total, product, customer:{name,email,addr,city,state,zip,country}, createdAt: new Date().toISOString() };
+  try {
+    const key = 'moe_orders';
+    const all = JSON.parse(localStorage.getItem(key) || '[]');
+    all.push(order);
+    localStorage.setItem(key, JSON.stringify(all));
+  } catch {}
+  location.href = 'thank-you.html?orderId=' + encodeURIComponent(orderId);
+});
+</script>
+</body></html>

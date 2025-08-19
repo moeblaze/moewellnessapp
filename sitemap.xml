@@ -19,4 +19,7 @@
   <url><loc>https://www.moecommunitycloud.com/blog/nir-safety-best-practices</loc><lastmod>2025-08-18</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
 
   <url><loc>https://www.moecommunitycloud.com/resources</loc><lastmod>2025-08-18</lastmod><changefreq>weekly</changefreq><priority>0.75</priority></url>
+  <url><loc>/checkout.html</loc><changefreq>weekly</changefreq></url>
+  <url><loc>/thank-you.html</loc><changefreq>weekly</changefreq></url>
+  <url><loc>/products/nir-panel.html</loc><changefreq>weekly</changefreq></url>
 </urlset>

@@ -1,0 +1,45 @@
+<!doctype html><html lang="en"><head>
+<meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Thank you — Moe Community Wellness</title>
+<link rel="stylesheet" href="styles.css"/>
+<meta name="robots" content="noindex">
+</head>
+<body class="plaid-bg">
+<header class="nav"><div class="row">
+  <div class="brand"><div class="logo" style="width:28px;height:28px;background:url(assets/images/og-index.png) center/cover"></div><div class="brand-name">Moe Community Wellness</div><span class="badge">Order</span></div>
+  <nav><a href="index.html">Home</a><a href="products/nir-panel.html">Products</a><a href="oscillator.html">Oscillator</a><a href="coach.html">Coach</a></nav>
+</div></header>
+
+<main class="container section">
+  <div class="card">
+    <div class="name">Thanks for your order (Demo)</div>
+    <p class="small">Your interest has been recorded. This is a demo—no payment was processed. We’ll contact you to complete the purchase.</p>
+    <div id="order" class="small"></div>
+    <div style="margin-top:8px;display:flex;gap:8px;flex-wrap:wrap">
+      <a class="btn primary" href="products/nir-panel.html">Back to product</a>
+      <a class="btn alt" href="index.html">Home</a>
+    </div>
+  </div>
+</main>
+
+<footer><div class="container small">© Moe Community Cloud</div></footer>
+
+<script>
+(function(){
+  function q(k){return new URLSearchParams(location.search).get(k)}
+  const orderId = q('orderId');
+  const orders = JSON.parse(localStorage.getItem('moe_orders') || '[]');
+  const order = orders.find(o=>o.orderId===orderId) || null;
+  let html = '';
+  if(order){
+    html += `<div><strong>Order ID:</strong> ${order.orderId}</div>`;
+    html += `<div><strong>Item:</strong> ${order.product.name} × ${order.qty}</div>`;
+    html += `<div><strong>Total:</strong> $${(Math.round(order.total*100)/100).toFixed(2)}</div>`;
+    html += `<div style='margin-top:6px'><strong>Ship to:</strong> ${order.customer.name}, ${order.customer.addr}, ${order.customer.city}, ${order.customer.state} ${order.customer.zip}, ${order.customer.country}</div>`;
+  } else {
+    html = 'Order details were not found in this browser.';
+  }
+  document.getElementById('order').innerHTML = html;
+})();
+</script>
+</body></html>
