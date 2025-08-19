@@ -190,7 +190,8 @@ main{padding-bottom:40px}
         </div>
       </div>
     </section>
-  </main>
+  <div style="margin-top:8px"><button class="btn alt" id="askCoach" style="min-width:160px">Ask Coach about this tone</button></div>
+</main>
 
   <footer>
     <div class="container">
@@ -281,5 +282,26 @@ fetch('payments.config.json').then(r=>r.json()).then(cfg=>{
   }
 });
 </script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+  const btn = document.getElementById('askCoach');
+  if(!btn) return;
+  btn.addEventListener('click', function(){
+    try {
+      const f = document.getElementById('freq')?.value || '528';
+      const w = document.getElementById('wave')?.value || 'sine';
+      const v = document.getElementById('vol')?.value || '0.3';
+      const mins = document.getElementById('minutes')?.value || '10';
+      const msg = `I am using the Healing Oscillator at ${f} Hz (${w} wave), volume ${Math.round(parseFloat(v)*100)}%, for ${mins} minutes. Please provide educational guidance: relaxation/breathing cues, safety tips for listening volume and breaks, and when to avoid.`;
+      const q = encodeURIComponent(msg);
+      window.location.href = `coach.html?q=${q}`;
+    } catch(e){
+      window.location.href = `coach.html`;
+    }
+  });
+});
+</script>
+
 </body>
 </html>

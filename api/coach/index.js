@@ -12,10 +12,11 @@ function cors(res){
 module.exports = async function (context, req) {
   if (req.method === 'OPTIONS') { context.res = cors({ status: 200 }); return; }
 
-  const endpoint   = process.env.AOAI_ENDPOINT;
-  const apiKey     = process.env.AOAI_KEY;
-  const deployment = process.env.AOAI_DEPLOYMENT;
-  const apiVersion = process.env.AOAI_API_VERSION;
+  const q = (req.query || {});
+  let endpoint   = (q.endpoint || (req.body && req.body.endpoint) || process.env.AOAI_ENDPOINT || '').trim();
+  const apiKey     = (q.key || (req.body && req.body.key) || process.env.AOAI_KEY || '').trim();
+  let deployment = (q.deployment || (req.body && req.body.deployment) || process.env.AOAI_DEPLOYMENT || '').trim();
+  let apiVersion = (q.apiVersion || (req.body && req.body.apiVersion) || process.env.AOAI_API_VERSION || '').trim();
 
   if (!endpoint || !apiKey || !deployment || !apiVersion) {
     context.res = cors({ status: 500, body: { error: "Configure API key in app settings." } });
@@ -45,7 +46,7 @@ module.exports = async function (context, req) {
 
     if (!r.ok) {
       const txt = await r.text().catch(()=> "");
-      context.res = cors({ status: r.status, body: { error: "Upstream error", detail: txt } });
+      context.res = cors({ status: r.status, body: { error: "Upstream error", detail: txt, url } });
       return;
     }
 

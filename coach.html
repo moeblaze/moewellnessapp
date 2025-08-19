@@ -62,5 +62,17 @@ async function send(){
 }
 document.getElementById('coachSend').addEventListener('click', send);
 input.addEventListener('keydown', e=>{ if(e.key==='Enter'){ e.preventDefault(); send(); } });
+
+// Auto-send if ?q= is provided
+try {
+  const u = new URL(window.location.href);
+  const preset = u.searchParams.get('q');
+  if (preset) {
+    const decoded = preset;
+    document.getElementById('coachInput').value = decoded;
+    setTimeout(()=>{ document.getElementById('coachSend').click(); }, 100);
+  }
+} catch {}
 </script>
+
 </body></html>
