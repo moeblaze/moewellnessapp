@@ -331,3 +331,92 @@ renderHistory();
     }
   });
 })();
+
+
+// --- AI Coach integration ---
+(function(){
+  const out = document.getElementById('coachOut');
+  const msg = document.getElementById('coachMsg');
+  let lastPreset = null;
+
+  function extractJson(text){
+    const m = text.match(/```json([\s\S]*?)```/i);
+    let j = null;
+    if (m) {
+      try { j = JSON.parse(m[1]); } catch {}
+    } else {
+      // fallback: attempt to find first {...}
+      const m2 = text.match(/\{[\s\S]*\}/);
+      if (m2) { try { j = JSON.parse(m2[0]); } catch {} }
+    }
+    return j;
+  }
+
+  async function ask(){
+    const prompt = (document.getElementById('coachIn').value||'').trim();
+    if(!prompt){ msg.textContent = 'Please type a short goal first.'; return; }
+    msg.textContent = 'Thinking...';
+    out.textContent = '';
+    lastPreset = null;
+    try{
+      const r = await fetch('api/chat', {
+        method: 'POST',
+        headers: { 'content-type':'application/json' },
+        body: JSON.stringify({ prompt })
+      });
+      if(!r.ok){
+        const t = await r.text();
+        msg.textContent = 'AI error. Configure API key in app settings.';
+        out.textContent = t.slice(0,500);
+        return;
+      }
+      const data = await r.json();
+      const text = data.text || '';
+      out.textContent = text;
+      const parsed = extractJson(text);
+      const p = parsed && parsed.preset;
+      if(p){
+        lastPreset = p;
+        document.getElementById('coachApply').disabled = false;
+      }else{
+        document.getElementById('coachApply').disabled = true;
+      }
+      msg.textContent = 'Done.';
+    }catch(e){
+      msg.textContent = 'Request failed.';
+      out.textContent = e.message;
+    }
+  }
+
+  function apply(){
+    if(!lastPreset) return;
+    try{
+      document.getElementById('engine').value = lastPreset.engine || document.getElementById('engine').value;
+      document.getElementById('wave').value = lastPreset.wave || document.getElementById('wave').value;
+      if(lastPreset.freq!=null) document.getElementById('freq').value = lastPreset.freq;
+      if(lastPreset.beat!=null) document.getElementById('beat').value = lastPreset.beat;
+      if(lastPreset.lfoRate!=null) document.getElementById('lfoRate').value = lastPreset.lfoRate;
+      if(lastPreset.lfoDepth!=null) document.getElementById('lfoDepth').value = lastPreset.lfoDepth;
+      if(lastPreset.minutes!=null) document.getElementById('minutes').value = lastPreset.minutes;
+      if(lastPreset.fade!=null) document.getElementById('fade').value = lastPreset.fade;
+      msg.textContent = 'Applied suggested settings. Press Play.';
+      // Optionally auto-play:
+      // document.getElementById('play').click();
+    }catch{}
+  }
+
+  function clearAll(){
+    document.getElementById('coachIn').value = '';
+    document.getElementById('coachOut').textContent = '';
+    document.getElementById('coachApply').disabled = true;
+    lastPreset = null;
+    msg.textContent = '';
+  }
+
+  const btnAsk = document.getElementById('coachAsk');
+  const btnApply = document.getElementById('coachApply');
+  const btnClear = document.getElementById('coachClear');
+  if(btnAsk){ btnAsk.addEventListener('click', ask); }
+  if(btnApply){ btnApply.addEventListener('click', apply); }
+  if(btnClear){ btnClear.addEventListener('click', clearAll); }
+})();
