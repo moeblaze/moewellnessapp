@@ -1,0 +1,7 @@
+{
+  "primary_bg": "#0d0d10",
+  "accent_gold": "#E7C65C",
+  "text": "#FFFFFF",
+  "font": "System UI, Inter, Arial, sans-serif",
+  "notes": "Use gold accents for borders and headings. Keep layout minimal and clear."
+}

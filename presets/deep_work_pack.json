@@ -1,0 +1,29 @@
+[
+  {
+    "name": "Deep Work \u2014 Alpha 10",
+    "engine": "Binaural",
+    "wave": "sine",
+    "freq": 220,
+    "beat": 10,
+    "lfoRate": 0.15,
+    "lfoDepth": 0.01
+  },
+  {
+    "name": "Deep Work \u2014 Alpha 8",
+    "engine": "Binaural",
+    "wave": "sine",
+    "freq": 200,
+    "beat": 8,
+    "lfoRate": 0.15,
+    "lfoDepth": 0.01
+  },
+  {
+    "name": "Deep Work \u2014 Iso 12",
+    "engine": "Isochronic",
+    "wave": "triangle",
+    "freq": 396,
+    "beat": 12,
+    "lfoRate": 0,
+    "lfoDepth": 0
+  }
+]

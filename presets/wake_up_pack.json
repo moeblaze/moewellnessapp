@@ -1,0 +1,29 @@
+[
+  {
+    "name": "Wake \u2014 Morning Shine",
+    "engine": "Single",
+    "wave": "triangle",
+    "freq": 528,
+    "beat": 0,
+    "lfoRate": 0.3,
+    "lfoDepth": 0.02
+  },
+  {
+    "name": "Wake \u2014 Alpha 12 Hz",
+    "engine": "Binaural",
+    "wave": "sine",
+    "freq": 240,
+    "beat": 12,
+    "lfoRate": 0.25,
+    "lfoDepth": 0.01
+  },
+  {
+    "name": "Wake \u2014 Iso 10 Hz",
+    "engine": "Isochronic",
+    "wave": "square",
+    "freq": 440,
+    "beat": 10,
+    "lfoRate": 0,
+    "lfoDepth": 0
+  }
+]

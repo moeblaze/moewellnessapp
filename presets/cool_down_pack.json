@@ -1,0 +1,29 @@
+[
+  {
+    "name": "Cool Down \u2014 Theta 5",
+    "engine": "Binaural",
+    "wave": "sine",
+    "freq": 180,
+    "beat": 5,
+    "lfoRate": 0.14,
+    "lfoDepth": 0.01
+  },
+  {
+    "name": "Cool Down \u2014 Delta 3",
+    "engine": "Binaural",
+    "wave": "sine",
+    "freq": 120,
+    "beat": 3,
+    "lfoRate": 0.12,
+    "lfoDepth": 0.02
+  },
+  {
+    "name": "Cool Down \u2014 Iso 2.5",
+    "engine": "Isochronic",
+    "wave": "sine",
+    "freq": 174,
+    "beat": 2.5,
+    "lfoRate": 0,
+    "lfoDepth": 0
+  }
+]
