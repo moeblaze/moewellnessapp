@@ -4,6 +4,7 @@
     "exclude": [
       "/assets/*",
       "/blog/*",
+      "/resources/*",
       "/oscillator.html",
       "/sitemap.xml",
       "/robots.txt",
