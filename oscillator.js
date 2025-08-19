@@ -316,3 +316,18 @@ document.querySelectorAll("[data-pack]").forEach(btn => {
 // Init UI
 populatePresets();
 renderHistory();
+
+
+// --- B2B Pro gating: hide pack buttons unless unlocked ---
+(function(){
+  const pro = localStorage.getItem('moe_b2b_pro_access') === 'true';
+  const status = document.getElementById('proStatus');
+  if (status) status.textContent = pro ? '(Pro Mode: ON)' : '(Pro Mode: OFF — unlock in B2B)';
+  document.querySelectorAll('[data-pack]').forEach(btn => {
+    if (!pro) {
+      btn.disabled = true;
+      btn.classList.add('disabled');
+      btn.title = 'Unlock Pro in B2B page';
+    }
+  });
+})();
